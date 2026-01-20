@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="pt-BR">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub de Módulos</title>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.4/dist/pizzip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.37.11/docxtemplater.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/image-compression@2.0.0/browser/index.global.js"></script>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <div class="app-container"><!-- Hub View -->
+   <div class="hub-view" id="hubView">
+    <div class="hub-header">
+     <h1 class="hub-title" id="hubTitle">Meu Workspace</h1>
+     <div class="search-filter-bar">
+      <div class="search-box">
+       <svg class="search-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /> <path d="m21 21-4.35-4.35" />
+       </svg><input type="text" id="searchInput" class="search-input" placeholder="Pesquisar módulos...">
+      </div>
+      <div class="filter-group"><label class="filter-label">Categoria:</label> <select id="categoryFilter" class="filter-select"> <option value="all">Todas</option> <option value="gerador">Geradores</option> <option value="conversor">Conversores</option> <option value="utilidade">Utilidades</option> </select>
+      </div>
+      <div class="filter-group"><label class="filter-label">Ordenar:</label> <select id="sortFilter" class="filter-select"> <option value="default">Padrão</option> <option value="az">A-Z</option> <option value="za">Z-A</option> </select>
+      </div>
+     </div>
+     <div class="active-filters" id="activeFilters"></div>
+    </div>
+    <div class="modules-grid" id="modulesGrid">
+     <div class="module-tile" data-module="orcamento" data-category="gerador" data-name="Gerador de Orçamentos">
+      <div class="module-icon">
+       <svg viewbox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /> <polyline points="14 2 14 8 20 8" /> <line x1="16" y1="13" x2="8" y2="13" /> <line x1="16" y1="17" x2="8" y2="17" /> <polyline points="10 9 9 9 8 9" />
+       </svg>
+      </div>
+      <div class="module-name">
+       Gerador de Orçamentos
+      </div>
+     </div>
+     <div class="module-tile" data-module="pdf2word" data-category="conversor" data-name="PDF → Word">
+      <div class="module-icon">
+       <svg viewbox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /> <polyline points="14 2 14 8 20 8" /> <path d="M12 18v-6" /> <path d="m9 15 3 3 3-3" />
+       </svg>
+      </div>
+      <div class="module-name">
+       PDF → Word
+      </div>
+     </div>
+     <div class="module-tile" data-module="doc2epub" data-category="conversor" data-name="Para EPUB">
+      <div class="module-icon">
+       <svg viewbox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2" /> <line x1="12" y1="18" x2="12.01" y2="18" />
+       </svg>
+      </div>
+      <div class="module-name">
+       Conversor EPUB
+      </div>
+     </div>
+     <div class="module-tile" data-module="imageconverter" data-category="conversor" data-name="Conversor de Imagens">
+      <div class="module-icon">
+       <svg viewbox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /> <circle cx="8.5" cy="8.5" r="1.5" /> <polyline points="21 15 16 10 5 21" />
+       </svg>
+      </div>
+      <div class="module-name">
+       Conversor de Imagens
+      </div>
+     </div>
+     <div class="module-tile" data-module="promobrender" data-category="utilidade" data-name="Melhorador de Renders 3D">
+      <div class="module-icon">
+       <svg viewbox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+       </svg>
+      </div>
+      <div class="module-name">
+       Renders 3D (Promob)
+      </div>
+     </div>
+    </div>
+    <div class="no-results" id="noResults">
+     <svg class="no-results-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /> <path d="m21 21-4.35-4.35" />
+     </svg>
+     <div class="no-results-text">
+      Nenhum módulo encontrado
+     </div>
+     <div class="no-results-hint">
+      Tente ajustar os filtros de pesquisa
+     </div>
+    </div>
+   </div><!-- Gerador de Orçamentos -->
+   <div class="module-view" id="orcamentoView">
+    <div class="module-header"><button class="back-button" onclick="showHub()">← Voltar</button>
+     <h2 class="module-header-title">Gerador de Orçamentos</h2>
+    </div>
+    <div class="module-content">
+     <div class="orcamento-wrapper"><!-- Formulário -->
+      <div class="orcamento-form-section">
+       <div class="form-section">
+        <h3 class="form-section-title">
+         <svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /> <circle cx="12" cy="7" r="4" />
+         </svg> Identidade Visual</h3>
+        <div class="form-group"><label class="form-label">Logo da Empresa</label>
+         <div class="logo-upload-area" onclick="document.getElementById('logoInput').click()"><img id="logoPreview" class="logo-preview" alt="Logo">
+          <div id="logoPlaceholder" class="logo-placeholder">
+           <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /> <circle cx="8.5" cy="8.5" r="1.5" /> <polyline points="21 15 16 10 5 21" />
+           </svg>
+           <div>
+            Clique para adicionar logo
+           </div>
+          </div>
+         </div><input type="file" id="logoInput" class="file-input" accept="image/*">
+        </div>
+        <div class="form-group"><label for="empresaNome" class="form-label">Nome da Empresa</label> <input type="text" id="empresaNome" class="form-input" placeholder="Digite o nome da empresa">
+        </div>
+        <div class="form-group"><label class="form-label">Cor de Destaque</label>
+         <div class="color-picker-group"><input type="color" id="accentColor" class="color-input" value="#3b82f6"> <input type="text" id="accentColorText" class="color-text-input" value="#3b82f6">
+         </div>
+        </div>
+       </div>
+       <div class="form-section">
+        <h3 class="form-section-title">
+         <svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /> <circle cx="8.5" cy="7" r="4" /> <line x1="20" y1="8" x2="20" y2="14" /> <line x1="23" y1="11" x2="17" y2="11" />
+         </svg> Cliente</h3>
+        <div class="form-group"><label for="clienteNome" class="form-label">Nome do Cliente</label> <input type="text" id="clienteNome" class="form-input" placeholder="Digite o nome do cliente">
+        </div>
+       </div>
+       <div class="form-section">
+        <h3 class="form-section-title">
+         <svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6" /> <line x1="8" y1="12" x2="21" y2="12" /> <line x1="8" y1="18" x2="21" y2="18" /> <line x1="3" y1="6" x2="3.01" y2="6" /> <line x1="3" y1="12" x2="3.01" y2="12" /> <line x1="3" y1="18" x2="3.01" y2="18" />
+         </svg> Itens do Orçamento</h3>
+        <div id="itemsContainer">
+         <div class="item-row">
+          <div class="form-group"><label class="form-label">Item</label> <input type="text" class="form-input item-desc" placeholder="Ex: Cozinha">
+          </div>
+          <div class="form-group"><label class="form-label">Valor (R$)</label> <input type="number" class="form-input item-price" value="0" min="0" step="0.01">
+          </div>
+          <div class="item-controls"><label class="checkbox-label"> <input type="checkbox" class="checkbox-input item-brinde"> 🎁 Brinde </label>
+          </div><button type="button" class="remove-item-btn" onclick="removeItem(this)" disabled>×</button>
+         </div>
+        </div><button type="button" class="add-item-btn" onclick="addItem()">+ Adicionar Item</button>
+       </div>
+       <div class="form-section">
+        <h3 class="form-section-title">
+         <svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2" /> <line x1="2" y1="10" x2="22" y2="10" />
+         </svg> Forma de Pagamento</h3>
+        <div class="form-group"><label for="paymentMethod" class="form-label">Método</label> <select id="paymentMethod" class="form-select"> <option value="">Não informar</option> <option value="pix">PIX</option> <option value="transferencia">Transferência Bancária</option> <option value="dinheiro">Dinheiro</option> </select>
+        </div>
+        <div id="pixDetails" class="payment-details">
+         <div class="form-group"><label for="pixType" class="form-label">Tipo de Chave PIX</label> <select id="pixType" class="form-select"> <option value="cpf">CPF</option> <option value="cnpj">CNPJ</option> <option value="email">E-mail</option> <option value="telefone">Telefone</option> <option value="aleatoria">Chave Aleatória</option> </select>
+         </div>
+         <div class="form-group"><label for="pixKey" class="form-label">Chave PIX</label> <input type="text" id="pixKey" class="form-input" placeholder="Digite a chave PIX">
+         </div>
+         <div class="form-group"><label for="pixName" class="form-label">Nome do Recebedor</label> <input type="text" id="pixName" class="form-input" placeholder="Digite o nome">
+         </div>
+        </div>
+        <div id="transferenciaDetails" class="payment-details">
+         <div class="form-group"><label for="bankName" class="form-label">Nome do Banco</label> <input type="text" id="bankName" class="form-input" placeholder="Ex: Banco do Brasil">
+         </div>
+         <div class="form-group"><label for="accountName" class="form-label">Nome do Titular</label> <input type="text" id="accountName" class="form-input" placeholder="Digite o nome">
+         </div>
+         <div class="form-group"><label for="agency" class="form-label">Agência</label> <input type="text" id="agency" class="form-input" placeholder="0000">
+         </div>
+         <div class="form-group"><label for="account" class="form-label">Conta</label> <input type="text" id="account" class="form-input" placeholder="00000-0">
+         </div>
+        </div>
+       </div><button type="button" class="btn-primary" onclick="downloadOrcamento()">
+        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" y1="15" x2="12" y2="3" />
+        </svg> Baixar Orçamento (PNG) </button>
+      </div><!-- Preview -->
+      <div class="orcamento-preview-section">
+       <div class="orcamento-preview" id="orcamentoPreview">
+        <div class="preview-header">
+         <div class="preview-logo"><img id="previewLogoImg" style="display:none" alt="Logo">
+          <div id="previewLogoPlaceholder" class="preview-logo-placeholder">
+           Logo
+          </div>
+         </div>
+         <div class="preview-company-info">
+          <div class="preview-label">
+           ORÇAMENTO
+          </div>
+          <div class="preview-company-name" id="previewEmpresaNome">
+           Nome da Empresa
+          </div>
+         </div>
+        </div>
+        <div class="preview-body">
+         <div class="preview-client-section">
+          <div class="preview-client-label">
+           CLIENTE
+          </div>
+          <div class="preview-client-name" id="previewClienteNome">
+           Nome do Cliente
+          </div>
+         </div>
+         <div class="preview-items-section">
+          <div class="preview-items-header">
+           Itens e Serviços
+          </div>
+          <table class="preview-items-table">
+           <thead>
+            <tr>
+             <th>DESCRIÇÃO</th>
+             <th style="text-align: right;">VALOR</th>
+            </tr>
+           </thead>
+           <tbody id="previewItemsBody">
+            <tr>
+             <td colspan="2" style="text-align: center; color: #94a3b8; padding: 32px;">Adicione itens ao orçamento</td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <div class="preview-total-section">
+          <div class="preview-total-label">
+           VALOR TOTAL
+          </div>
+          <div class="preview-total-value" id="previewTotal">
+           R$ 0,00
+          </div>
+         </div>
+         <div class="preview-payment-section" id="previewPaymentSection" style="display:none;">
+          <div class="preview-payment-title">
+           <svg class="preview-payment-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2" /> <line x1="2" y1="10" x2="22" y2="10" />
+           </svg> DADOS PARA PAGAMENTO
+          </div>
+          <div class="preview-payment-info" id="previewPaymentInfo"></div>
+         </div>
+         <div class="preview-footer">
+          <div class="preview-date" id="previewDate">
+           Data: <span id="previewDateValue"></span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- PDF to Word -->
+   <div class="module-view" id="pdf2wordView">
+    <div class="module-header"><button class="back-button" onclick="showHub()">← Voltar</button>
+     <h2 class="module-header-title">Conversor PDF → Word</h2>
+    </div>
+    <div class="module-content">
+     <div class="pdf-converter">
+      <div class="converter-header">
+       <h2 class="converter-title">Converter PDF para Word</h2>
+       <p class="converter-subtitle">Transforme seus documentos PDF em arquivos Word editáveis com qualidade profissional</p>
+      </div>
+      <div class="upload-area" id="uploadArea" onclick="document.getElementById('pdfFile').click()">
+       <svg class="upload-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="17 8 12 3 7 8" /> <line x1="12" y1="3" x2="12" y2="15" />
+       </svg>
+       <div class="upload-text">
+        Arraste seu PDF aqui ou clique para selecionar
+       </div>
+       <div class="upload-hint">
+        Suporta arquivos PDF de até 50MB
+       </div>
+      </div><input type="file" id="pdfFile" class="file-input" accept=".pdf,application/pdf">
+      <div class="selected-file" id="selectedFile">
+       <svg class="file-icon" viewbox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /> <polyline points="14 2 14 8 20 8" fill="none" stroke="#fff" stroke-width="2" /> <text x="12" y="17" text-anchor="middle" fill="#fff" font-size="6" font-weight="bold">
+         PDF
+        </text>
+       </svg>
+       <div class="file-info">
+        <div class="file-name" id="fileName"></div>
+        <div class="file-size" id="fileSize"></div>
+       </div><button type="button" class="remove-file-btn" onclick="removeFile()">×</button>
+      </div>
+      <div class="conversion-progress" id="conversionProgress">
+       <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+       </div>
+       <div class="progress-text" id="progressText">
+        Preparando conversão...
+       </div>
+      </div><button type="button" class="btn-convert" id="convertBtn" onclick="convertPDF()">
+       <svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" y1="15" x2="12" y2="3" />
+       </svg> Converter para Word </button>
+      <div class="conversion-status" id="conversionStatus"></div>
+      <div class="features-list">
+       <div class="features-grid">
+        <div class="feature-item">
+         <svg class="feature-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" />
+         </svg><span class="feature-text">Preserva formatação original</span>
+        </div>
+        <div class="feature-item">
+         <svg class="feature-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" />
+         </svg><span class="feature-text">Extrai texto e imagens</span>
+        </div>
+        <div class="feature-item">
+         <svg class="feature-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" />
+         </svg><span class="feature-text">Conversão rápida e precisa</span>
+        </div>
+        <div class="feature-item">
+         <svg class="feature-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" />
+         </svg><span class="feature-text">100% gratuito e seguro</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Conversor para EPUB -->
+   <div class="module-view" id="doc2epubView">
+    <div class="module-header"><button class="back-button" onclick="showHub()">← Voltar</button>
+     <h2 class="module-header-title">Conversor para EPUB</h2>
+    </div>
+    <div class="module-content">
+     <div class="epub-converter">
+      <div class="converter-header">
+       <h2 class="converter-title">Converter para EPUB</h2>
+       <p class="converter-subtitle">Transforme seus documentos em e-books EPUB compatíveis com qualquer leitor de e-book</p>
+      </div>
+      <div class="upload-area" id="epubUploadArea" onclick="document.getElementById('docFile').click()">
+       <svg class="upload-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="17 8 12 3 7 8" /> <line x1="12" y1="3" x2="12" y2="15" />
+       </svg>
+       <div class="upload-text">
+        Arraste seu arquivo aqui ou clique para selecionar
+       </div>
+       <div class="upload-hint">
+        Suporta PDF, DOC, DOCX, TXT e HTML de até 50MB
+       </div>
+      </div><input type="file" id="docFile" class="file-input" accept=".pdf,.doc,.docx,.txt,.html,application/pdf,application/msword">
+      <div class="selected-file" id="epubSelectedFile">
+       <svg class="file-icon" viewbox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /> <polyline points="14 2 14 8 20 8" fill="none" stroke="#fff" stroke-width="2" /> <text x="12" y="17" text-anchor="middle" fill="#fff" font-size="6" font-weight="bold">
+         DOC
+        </text>
+       </svg>
+       <div class="file-info">
+        <div class="file-name" id="epubFileName"></div>
+        <div class="file-size" id="epubFileSize"></div>
+       </div><button type="button" class="remove-file-btn" onclick="removeEpubFile()">×</button>
+      </div>
+      <div class="epub-options">
+       <div class="form-group">
+        <label class="form-label">Título do E-book</label>
+        <input type="text" id="epubTitle" class="form-input" placeholder="Digite o título do e-book">
+       </div>
+       <div class="form-group">
+        <label class="form-label">Autor</label>
+        <input type="text" id="epubAuthor" class="form-input" placeholder="Digite o nome do autor">
+       </div>
+       <div class="form-group">
+        <label class="form-label">Idioma</label>
+        <select id="epubLanguage" class="form-select">
+         <option value="pt-BR">Português (Brasil)</option>
+         <option value="pt">Português</option>
+         <option value="en">Inglês</option>
+         <option value="es">Espanhol</option>
+         <option value="fr">Francês</option>
+         <option value="de">Alemão</option>
+        </select>
+       </div>
+      </div>
+      <div class="conversion-progress" id="epubConversionProgress">
+       <div class="progress-bar-container">
+        <div class="progress-bar" id="epubProgressBar" style="width: 0%"></div>
+       </div>
+       <div class="progress-text" id="epubProgressText">
+        Preparando conversão...
+       </div>
+      </div><button type="button" class="btn-convert" id="epubConvertBtn" onclick="convertToEpub()">
+       <svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" y1="15" x2="12" y2="3" />
+       </svg> Converter para EPUB </button>
+      <div class="conversion-status" id="epubConversionStatus"></div>
+      <div class="features-list">
+       <div class="features-grid">
+        <div class="feature-item">
+         <svg class="feature-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" />
+         </svg><span class="feature-text">Compatível com qualquer leitor</span>
+        </div>
+        <div class="feature-item">
+         <svg class="feature-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" />
+         </svg><span class="feature-text">Preserva formatação</span>
+        </div>
+        <div class="feature-item">
+         <svg class="feature-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" />
+         </svg><span class="feature-text">Múltiplos formatos</span>
+        </div>
+        <div class="feature-item">
+         <svg class="feature-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" />
+         </svg><span class="feature-text">100% gratuito</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Conversor de Imagens -->
+   <div class="module-view" id="imageconverterView">
+    <div class="module-header"><button class="back-button" onclick="showHub()">← Voltar</button>
+     <h2 class="module-header-title">Conversor de Imagens</h2>
+    </div>
+    <div class="module-content">
+     <div class="image-converter">
+      <div class="converter-header">
+       <h2 class="converter-title">Conversor de Imagens</h2>
+       <p class="converter-subtitle">Converta, comprima, redimensione e edite suas imagens online</p>
+      </div>
+      <div class="image-tools-tabs">
+       <button class="tool-tab active" data-tool="convert">Converter</button>
+       <button class="tool-tab" data-tool="resize">Redimensionar</button>
+       <button class="tool-tab" data-tool="compress">Comprimir</button>
+       <button class="tool-tab" data-tool="base64">Base64</button>
+       <button class="tool-tab" data-tool="removebg">Remover Fundo</button>
+       <button class="tool-tab" data-tool="enhance">Melhorar Qualidade</button>
+       <button class="tool-tab" data-tool="sprite">Sprite Generator</button>
+      </div>
+      <div class="image-tool-content">
+       <!-- Convert Tab -->
+       <div class="tool-section active" id="convert-tool">
+        <div style="text-align: center; margin-bottom: 28px;">
+         <h3 style="color: #e2e8f0; margin-bottom: 8px;">Converter Formato</h3>
+         <p style="color: #94a3b8; font-size: 13px;">Selecione uma imagem e escolha o formato desejado</p>
+        </div>
+        <div class="upload-area" id="imageUploadArea" onclick="document.getElementById('imageFile').click()">
+         <svg class="upload-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /> <circle cx="8.5" cy="8.5" r="1.5" /> <polyline points="21 15 16 10 5 21" />
+         </svg>
+         <div class="upload-text">Arraste sua imagem aqui ou clique para selecionar</div>
+         <div class="upload-hint">Suporta PNG, JPG, GIF, WebP de até 50MB</div>
+        </div>
+        <input type="file" id="imageFile" class="file-input" accept="image/*">
+        <div class="selected-file" id="imageSelectedFile">
+         <svg class="file-icon" viewbox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /> <circle cx="8.5" cy="8.5" r="1.5" fill="#fff" /> <polyline points="21 15 16 10 5 21" stroke="#fff" stroke-width="2" />
+         </svg>
+         <div class="file-info">
+          <div class="file-name" id="imageFileName"></div>
+          <div class="file-size" id="imageFileSize"></div>
+         </div>
+         <button type="button" class="remove-file-btn" onclick="removeImageFile()">×</button>
+        </div>
+        <div class="convert-options">
+         <label class="form-label">Converter para:</label>
+         <div class="format-buttons">
+          <button class="format-btn" onclick="convertImageFormat('jpeg')">JPG</button>
+          <button class="format-btn" onclick="convertImageFormat('png')">PNG</button>
+          <button class="format-btn" onclick="convertImageFormat('webp')">WebP</button>
+          <button class="format-btn" onclick="convertImageFormat('pdf')">PDF</button>
+         </div>
+        </div>
+        <div class="conversion-progress" id="imageConversionProgress">
+         <div class="progress-bar-container">
+          <div class="progress-bar" id="imageProgressBar" style="width: 0%"></div>
+         </div>
+         <div class="progress-text" id="imageProgressText">Preparando conversão...</div>
+        </div>
+       </div>
+       <!-- Resize Tab -->
+       <div class="tool-section" id="resize-tool">
+        <div class="resize-container" style="display: flex; gap: 20px;">
+         <!-- Left Panel -->
+         <div style="flex: 0 0 350px;">
+          <div class="upload-area" id="resizeUploadArea" onclick="document.getElementById('resizeFile').click()" style="margin-bottom: 20px;">
+           <svg class="upload-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" /> <line x1="9" y1="9" x2="15" y2="9" /> <line x1="9" y1="15" x2="15" y2="15" /> <line x1="9" y1="9" x2="9" y2="15" /> <line x1="15" y1="9" x2="15" y2="15" />
+           </svg>
+           <div class="upload-text">Selecione sua imagem</div>
+          </div>
+          <input type="file" id="resizeFile" class="file-input" accept="image/*">
+          <div class="selected-file" id="resizeSelectedFile">
+           <div class="file-info">
+            <div class="file-name" id="resizeFileName"></div>
+           </div>
+           <button type="button" class="remove-file-btn" onclick="removeResizeFile()">×</button>
+          </div>
+          <div class="resize-options">
+           <div class="resize-group" style="grid-template-columns: 1fr;">
+            <div>
+             <label class="form-label">Largura (px)</label>
+             <input type="number" id="resizeWidth" class="form-input" placeholder="800" min="1">
+            </div>
+            <div>
+             <label class="form-label">Altura (px)</label>
+             <input type="number" id="resizeHeight" class="form-input" placeholder="600" min="1">
+            </div>
+           </div>
+           <button type="button" class="btn-convert" onclick="resizeImage()" style="margin-top: 16px;">Redimensionar</button>
+          </div>
+         </div>
+         <!-- Right Panel - Preview -->
+         <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.3)); border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 12px; padding: 20px;">
+          <img id="resizePreviewImg" style="display:none; max-width:100%; max-height:100%; border-radius:8px; object-fit: contain;">
+          <div id="resizePreviewPlaceholder" style="text-align: center; color: #64748b; opacity: 0.5;">
+           <svg width="64" height="64" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom: 12px;"><rect x="3" y="3" width="18" height="18" rx="2" /> <circle cx="8.5" cy="8.5" r="1.5" /> <polyline points="21 15 16 10 5 21" /></svg>
+           <p>Preview aqui</p>
+          </div>
+         </div>
+        </div>
+        <div style="margin-top: 16px;">
+         <button type="button" class="btn-convert" id="resizeDownloadBtn" onclick="downloadResizedImage()" style="background:#27ae60; display: none;">
+          <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" y1="15" x2="12" y2="3" />
+          </svg> Salvar
+         </button>
+        </div>
+       </div>
+       <!-- Compress Tab -->
+       <div class="tool-section" id="compress-tool">
+        <div class="compress-container" style="display: flex; gap: 20px;">
+         <!-- Left Panel -->
+         <div style="flex: 0 0 350px;">
+          <div class="upload-area" id="compressUploadArea" onclick="document.getElementById('compressFile').click()" style="margin-bottom: 20px;">
+           <svg class="upload-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="6" /> <line x1="9" y1="3" x2="9" y2="15" /> <line x1="3" y1="9" x2="15" y2="9" /> <circle cx="16" cy="16" r="6" /> <line x1="16" y1="10" x2="16" y2="22" /> <line x1="10" y1="16" x2="22" y2="16" />
+           </svg>
+           <div class="upload-text">Arraste sua imagem para comprimir</div>
+          </div>
+          <input type="file" id="compressFile" class="file-input" accept="image/*">
+          <div class="selected-file" id="compressSelectedFile">
+           <div class="file-info">
+            <div class="file-name" id="compressFileName"></div>
+           </div>
+           <button type="button" class="remove-file-btn" onclick="removeCompressFile()">×</button>
+          </div>
+          <div class="compress-options">
+           <label class="form-label">Qualidade (%)</label>
+           <div class="quality-slider">
+            <input type="range" id="qualitySlider" min="10" max="100" value="75" class="slider">
+            <span id="qualityValue">75%</span>
+           </div>
+           <button type="button" class="btn-convert" onclick="compressImage()" style="margin-top: 16px;">Comprimir</button>
+          </div>
+         </div>
+         <!-- Right Panel - Preview -->
+         <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.3)); border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 12px; padding: 20px;">
+          <img id="compressPreviewImg" style="display:none; max-width:100%; max-height:100%; border-radius:8px; object-fit: contain;">
+          <div id="compressPreviewPlaceholder" style="text-align: center; color: #64748b; opacity: 0.5;">
+           <svg width="64" height="64" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom: 12px;"><circle cx="9" cy="9" r="6" /> <line x1="9" y1="3" x2="9" y2="15" /> <line x1="3" y1="9" x2="15" y2="9" /> <circle cx="16" cy="16" r="6" /> <line x1="16" y1="10" x2="16" y2="22" /> <line x1="10" y1="16" x2="22" y2="16" /></svg>
+           <p>Preview aqui</p>
+          </div>
+         </div>
+        </div>
+        <div style="margin-top: 16px;">
+         <button type="button" class="btn-convert" id="compressDownloadBtn" onclick="downloadCompressedImage()" style="background:#27ae60; display: none;">
+          <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" y1="15" x2="12" y2="3" />
+          </svg> Salvar
+         </button>
+        </div>
+       </div>
+       <!-- Base64 Tab -->
+       <div class="tool-section" id="base64-tool">
+        <div class="base64-mode">
+         <button class="mode-btn active" onclick="switchBase64Mode('encode')">Imagem → Base64</button>
+         <button class="mode-btn" onclick="switchBase64Mode('decode')">Base64 → Imagem</button>
+        </div>
+        <div id="encode-mode" class="base64-mode-content active">
+         <div class="upload-area" id="base64UploadArea" onclick="document.getElementById('base64File').click()">
+          <svg class="upload-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" /> <path d="M8 12h8M12 8v8" />
+          </svg>
+          <div class="upload-text">Selecione uma imagem</div>
+         </div>
+         <input type="file" id="base64File" class="file-input" accept="image/*">
+         <div class="base64-output">
+          <label class="form-label">Base64:</label>
+          <textarea id="base64Output" class="form-input" readonly rows="6"></textarea>
+          <button type="button" class="btn-convert" onclick="copyBase64()">Copiar</button>
+         </div>
+        </div>
+        <div id="decode-mode" class="base64-mode-content">
+         <label class="form-label">Cole o Base64:</label>
+         <textarea id="base64Input" class="form-input" rows="6" placeholder="Cole o código Base64 aqui..."></textarea>
+         <div style="display:flex; gap:10px;">
+          <button type="button" class="btn-convert" onclick="decodeBase64()" style="flex:1;">Decodificar</button>
+          <button type="button" class="btn-convert" id="base64DownloadBtn" onclick="downloadDecodedImage()" style="flex:1; background:#27ae60;">
+           <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" y1="15" x2="12" y2="3" />
+           </svg> Salvar
+          </button>
+         </div>
+         <div id="decodedImageContainer"></div>
+        </div>
+       </div>
+       <!-- Remove Background Tab -->
+       <div class="tool-section" id="removebg-tool">
+        <div class="removebg-container" style="display: flex; gap: 20px;">
+         <!-- Left Panel -->
+         <div style="flex: 0 0 350px;">
+          <div class="upload-area" id="removebgUploadArea" onclick="document.getElementById('removebgFile').click()" style="margin-bottom: 20px;">
+           <svg class="upload-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" /> <path d="M8 14s1.5 2 4 2 4-2 4-2" /> <line x1="9" y1="9" x2="9" y2="9.01" /> <line x1="15" y1="9" x2="15" y2="9.01" />
+           </svg>
+           <div class="upload-text">Arraste sua imagem para remover o fundo</div>
+          </div>
+          <input type="file" id="removebgFile" class="file-input" accept="image/*">
+          <div class="selected-file" id="removebgSelectedFile">
+           <div class="file-info">
+            <div class="file-name" id="removebgFileName"></div>
+           </div>
+           <button type="button" class="remove-file-btn" onclick="removeRemoveBgFile()">×</button>
+          </div>
+          <div class="removebg-options">
+           <p class="form-label">Tolerância de Cor</p>
+           <div class="quality-slider">
+            <input type="range" id="toleranceSlider" min="0" max="100" value="50" class="slider">
+            <span id="toleranceValue">50</span>
+           </div>
+           <button type="button" class="btn-convert" onclick="removeBackground()" style="margin-top: 16px;">Remover Fundo</button>
+          </div>
+         </div>
+         <!-- Right Panel - Preview -->
+         <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.3)); border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 12px; padding: 20px;">
+          <img id="removebgPreviewImg" style="display:none; max-width:100%; max-height:100%; border-radius:8px; object-fit: contain;">
+          <div id="removebgPreviewPlaceholder" style="text-align: center; color: #64748b; opacity: 0.5;">
+           <svg width="64" height="64" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom: 12px;"><circle cx="12" cy="12" r="10" /> <path d="M8 14s1.5 2 4 2 4-2 4-2" /> <line x1="9" y1="9" x2="9" y2="9.01" /> <line x1="15" y1="9" x2="15" y2="9.01" /></svg>
+           <p>Preview aqui</p>
+          </div>
+         </div>
+        </div>
+        <div style="margin-top: 16px;">
+         <button type="button" class="btn-convert" id="removebgDownloadBtn" onclick="downloadRemoveBgImage()" style="background:#27ae60; display: none;">
+          <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" y1="15" x2="12" y2="3" />
+          </svg> Salvar
+         </button>
+        </div>
+       </div>
+       <!-- Enhance Quality Tab -->
+       <div class="tool-section" id="enhance-tool">
+        <div class="enhance-container">
+         <!-- Header -->
+         <div class="enhance-header">
+          <h3 style="margin: 0; color: #e2e8f0;">Editor de Qualidade Profissional</h3>
+          <p style="margin: 4px 0 0 0; color: #94a3b8; font-size: 12px;">Aplique presets profissionais ou customize manualmente</p>
+         </div>
+
+         <!-- Main Layout -->
+         <div class="enhance-layout">
+          <!-- Left Panel - Controls -->
+          <div class="enhance-left-panel">
+           <!-- Upload Section -->
+           <div class="enhance-section">
+            <div class="upload-area" id="enhanceUploadArea" onclick="document.getElementById('enhanceFile').click()" style="margin-bottom: 0;">
+             <svg class="upload-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /> <circle cx="12" cy="12" r="3" />
+             </svg>
+             <div class="upload-text">Selecione sua imagem</div>
+            </div>
+            <input type="file" id="enhanceFile" class="file-input" accept="image/*">
+            <div class="selected-file" id="enhanceSelectedFile">
+             <div class="file-info">
+              <div class="file-name" id="enhanceFileName"></div>
+             </div>
+             <button type="button" class="remove-file-btn" onclick="removeEnhanceFile()">×</button>
+            </div>
+           </div>
+
+           <!-- Presets Section -->
+               <!-- Image Converter Sub-Section -->
+           <div class="enhance-section">
+            <h4 class="enhance-section-title">🔄 Conversor Rápido</h4>
+            <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+             <input type="text" id="enhanceConvertFormat" class="form-input" placeholder="jpg, png, webp" style="flex: 1; font-size: 12px; padding: 8px;">
+             <button type="button" class="btn-convert" onclick="quickConvertEnhance()" style="flex: 0 0 100px; padding: 8px; font-size: 12px;">
+              Converter
+             </button>
+            </div>
+           </div>
+
+           <div class="enhance-section">
+            <h4 class="enhance-section-title">📸 Presets Profissionais</h4>
+            <div class="presets-grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+             <!-- Influencer/Redes Sociais -->
+             <button type="button" class="preset-btn-pro" onclick="applyPreset('influencer')" title="Cores vibrantes, feed harmonioso">
+              <span class="preset-icon">📱</span>
+              <span class="preset-name">Influencer</span>
+             </button>
+             <!-- Cinemático -->
+             <button type="button" class="preset-btn-pro" onclick="applyPreset('cinematic')" title="Alto contraste, dramático">
+              <span class="preset-icon">🎬</span>
+              <span class="preset-name">Cinemático</span>
+             </button>
+             <!-- Casamento/Família -->
+             <button type="button" class="preset-btn-pro" onclick="applyPreset('wedding')" title="Suave, tons de pele realçados">
+              <span class="preset-icon">💕</span>
+              <span class="preset-name">Casamento</span>
+             </button>
+             <!-- Paisagem Premium -->
+             <button type="button" class="preset-btn-pro" onclick="applyPreset('landscape')" title="Cores ricas, céu detalhado">
+              <span class="preset-icon">🏞️</span>
+              <span class="preset-name">Paisagem</span>
+             </button>
+             <!-- Retrato Premium -->
+             <button type="button" class="preset-btn-pro" onclick="applyPreset('portrait')" title="Pele suave, olhos vivos">
+              <span class="preset-icon">👤</span>
+              <span class="preset-name">Retrato</span>
+             </button>
+             <!-- Produto -->
+             <button type="button" class="preset-btn-pro" onclick="applyPreset('product')" title="Cores fiéis, detalhes nítidos">
+              <span class="preset-icon">📦</span>
+              <span class="preset-name">Produto</span>
+             </button>
+             <!-- Comida -->
+             <button type="button" class="preset-btn-pro" onclick="applyPreset('food')" title="Cores quentes, apetitosas">
+              <span class="preset-icon">🍽️</span>
+              <span class="preset-name">Comida</span>
+             </button>
+             <!-- Preto e Branco -->
+             <button type="button" class="preset-btn-pro" onclick="applyPreset('blackwhite')" title="Clássico e intemporal">
+              <span class="preset-icon">⚫</span>
+              <span class="preset-name">P&B</span>
+             </button>
+             <!-- HDR/Dramático -->
+             <button type="button" class="preset-btn-pro" onclick="applyPreset('hdr')" title="Detalhes em todos os tons">
+              <span class="preset-icon">🌟</span>
+              <span class="preset-name">HDR</span>
+             </button>
+            </div>
+           </div>
+
+           <!-- Quick Controls -->
+           <div class="enhance-section">
+            <h4 class="enhance-section-title">⚙️ Ajustes Rápidos</h4>
+            <div class="controls-grid-2col">
+             <div class="enhance-control-compact">
+              <label class="form-label-compact">Contraste</label>
+              <div class="quality-slider-compact">
+               <input type="range" id="contrastSlider" min="0" max="200" value="100" class="slider">
+               <span id="contrastValue">100</span>
+              </div>
+             </div>
+             <div class="enhance-control-compact">
+              <label class="form-label-compact">Brilho</label>
+              <div class="quality-slider-compact">
+               <input type="range" id="brightnessSlider" min="0" max="200" value="100" class="slider">
+               <span id="brightnessValue">100</span>
+              </div>
+             </div>
+             <div class="enhance-control-compact">
+              <label class="form-label-compact">Saturação</label>
+              <div class="quality-slider-compact">
+               <input type="range" id="saturationSlider" min="0" max="200" value="100" class="slider">
+               <span id="saturationValue">100</span>
+              </div>
+             </div>
+             <div class="enhance-control-compact">
+              <label class="form-label-compact">Nitidez</label>
+              <div class="quality-slider-compact">
+               <input type="range" id="sharpnessSlider" min="0" max="100" value="0" class="slider">
+               <span id="sharpnessValue">0</span>
+              </div>
+             </div>
+            </div>
+           </div>
+
+           <!-- Advanced Controls -->
+           <div class="enhance-section">
+            <h4 class="enhance-section-title">🔧 Ajustes Avançados</h4>
+            <div class="controls-collapsible">
+             <button type="button" class="collapsible-btn" onclick="toggleAdvanced()">Mostrar controles avançados</button>
+             <div id="advancedControls" style="display:none;">
+              <div class="enhance-control-compact">
+               <label class="form-label-compact">Redução de Ruído</label>
+               <div class="quality-slider-compact">
+                <input type="range" id="denoisingSlider" min="0" max="100" value="0" class="slider">
+                <span id="denoisingValue">0</span>
+               </div>
+              </div>
+              <div class="enhance-control-compact">
+               <label class="form-label-compact">Clareza</label>
+               <div class="quality-slider-compact">
+                <input type="range" id="claritySlider" min="0" max="100" value="0" class="slider">
+                <span id="clarityValue">0</span>
+               </div>
+              </div>
+              <div class="enhance-control-compact">
+               <label class="form-label-compact">Suavização</label>
+               <div class="quality-slider-compact">
+                <input type="range" id="smoothingSlider" min="0" max="100" value="0" class="slider">
+                <span id="smoothingValue">0</span>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+
+           <!-- Action Buttons -->
+           <div class="enhance-actions">
+            <button type="button" class="btn-convert" onclick="enhanceImage()" style="flex:1; background: linear-gradient(135deg, #ec4899, #f472b6);">
+             <span style="font-weight: 600;">✓ Aplicar Ajustes</span>
+            </button>
+            <button type="button" class="btn-convert" id="enhanceDownloadBtn" onclick="downloadEnhancedImage()" style="flex:1; background:#27ae60;">
+             <svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" y1="15" x2="12" y2="3" />
+             </svg> Baixar
+            </button>
+           </div>
+          </div>
+
+          <!-- Right Panel - Preview -->
+          <div class="enhance-right-panel">
+           <div class="enhance-preview" id="enhancePreview" style="display:none;">
+            <div class="preview-info">
+             <span id="previewStatus" style="font-size: 12px; color: #94a3b8;">Imagem processada</span>
+            </div>
+            <img id="enhancePreviewImg" style="max-width:100%; max-height:100%; border-radius:8px; object-fit: contain;">
+           </div>
+           <div id="enhancePreviewPlaceholder" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#64748b;">
+            <svg width="64" height="64" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="opacity: 0.3; margin-bottom: 12px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /> <circle cx="12" cy="12" r="3" /> <path d="M19 19H5V5h14M9 9h6v6H9z" style="opacity: 0.3;" /></svg>
+            <p style="font-size: 14px; margin: 0;">Selecione uma imagem para começar</p>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <!-- Sprite Generator Tab -->
+       <div class="tool-section" id="sprite-tool">
+        <div class="sprite-generator">
+         <div class="sprite-upload-area" id="spriteUploadArea" onclick="document.getElementById('spriteFiles').click()">
+          <svg class="upload-icon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" /> <rect x="14" y="3" width="7" height="7" /> <rect x="3" y="14" width="7" height="7" /> <rect x="14" y="14" width="7" height="7" />
+          </svg>
+          <div class="upload-text">Selecione 1 imagem para dividir em slips</div>
+         </div>
+         <input type="file" id="spriteFiles" class="file-input" accept="image/*">
+         <div class="sprite-files-list" id="spriteFilesList">
+          <p class="form-label">Imagem selecionada: <span id="spriteFileCount">Nenhuma</span></p>
+         </div>
+         <div class="sprite-options">
+          <div class="sprite-control">
+           <label class="form-label">Quantidade de slips (4, 9, 16, 25...)</label>
+           <input type="number" id="spriteSlipCount" class="form-input" value="9" min="1" step="1">
+           <small style="color:#94a3b8; display:block; margin-top:4px;">Exemplos: 4 = 2x2, 9 = 3x3, 16 = 4x4</small>
+          </div>
+          <div style="display:flex; gap:10px;">
+           <button type="button" class="btn-convert" onclick="generateSprite()" style="flex:1;">Gerar Slips</button>
+           <button type="button" class="btn-convert" id="spriteDownloadBtn" onclick="downloadSprite()" style="flex:1; background:#27ae60;">
+            <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" y1="15" x2="12" y2="3" />
+            </svg> Salvar ZIP
+           </button>
+          </div>
+         </div>
+         <div class="sprite-result" id="spriteResult" style="display:none;">
+          <p class="form-label" style="margin-top:20px;">Sprite Gerado:</p>
+          <img id="spritePreviewImg" style="max-width:100%; border:1px solid #666; border-radius:8px; margin-top:12px; background:#222;">
+          <textarea id="spriteDataUrl" class="form-input" readonly rows="3" placeholder="Data URL da sprite..." style="margin-top:12px;"></textarea>
+          <button type="button" class="btn-convert" onclick="copySpriteData()" style="margin-top:8px;">Copiar Data URL</button>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="conversion-status" id="imageConversionStatus"></div>
+     </div>
+    </div>
+   </div><!-- Placeholder Module -->
+   <div class="module-view" id="promobrenderview">
+    <div class="module-header"><button class="back-button" onclick="showHub()">← Voltar</button>
+     <h2 class="module-header-title">🎨 Melhorador de Renders 3D (Promob)</h2>
+    </div>
+    <div class="module-content">
+     <div class="render-main-layout">
+      <!-- LEFT PANEL - Controls -->
+      <div class="render-left-panel">
+       <!-- Upload Section -->
+       <div class="render-section">
+        <h4 class="render-section-title">📤 Upload do Render</h4>
+        <div class="upload-area" id="renderUploadArea" style="margin-bottom: 0;">
+         <svg width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="upload-icon">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+         </svg>
+         <h3 class="upload-title">Selecione um Render</h3>
+         <p class="upload-subtitle">Arraste ou clique</p>
+         <input type="file" id="renderFile" class="file-input" accept="image/*" hidden>
+        </div>
+        <div id="renderSelectedFile" class="selected-file-info" style="display: none; margin-top: 12px;">
+         <div class="selected-file-name" id="renderFileName"></div>
+         <div class="selected-file-size" id="renderFileSize"></div>
+         <button type="button" class="remove-file-btn" onclick="removeRenderFile()">Remover</button>
+        </div>
+       </div>
+
+       <!-- Presets -->
+       <div class="render-section">
+        <h4 class="render-section-title">✨ Estilos Rápidos</h4>
+        <div class="render-presets-grid-compact">
+         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('natural')" title="Natural">🌿</button>
+         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('vibrant')" title="Vibrante">🎆</button>
+         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('professional')" title="Profissional">💼</button>
+         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('showcase')" title="Showcase">⭐</button>
+         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('warm')" title="Quente">🔥</button>
+         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('cool')" title="Frio">❄️</button>
+        </div>
+       </div>
+
+       <!-- Ajustes Profissionais -->
+       <div class="render-section">
+        <h4 class="render-section-title">⚙️ Ajustes</h4>
+        
+        <div class="render-control-group-compact">
+         <label class="control-label">💡 Iluminação</label>
+         <div class="control-slider-compact">
+          <input type="range" id="renderLighting" min="50" max="150" value="100" class="slider">
+          <span class="control-value-compact" id="renderLightingValue">100%</span>
+         </div>
+        </div>
+
+        <div class="render-control-group-compact">
+         <label class="control-label">🎯 Contraste</label>
+         <div class="control-slider-compact">
+          <input type="range" id="renderContrast" min="50" max="200" value="100" class="slider">
+          <span class="control-value-compact" id="renderContrastValue">100%</span>
+         </div>
+        </div>
+
+        <div class="render-control-group-compact">
+         <label class="control-label">🎨 Saturação</label>
+         <div class="control-slider-compact">
+          <input type="range" id="renderSaturation" min="0" max="200" value="100" class="slider">
+          <span class="control-value-compact" id="renderSaturationValue">100%</span>
+         </div>
+        </div>
+
+        <div class="render-control-group-compact">
+         <label class="control-label">🔍 Nitidez</label>
+         <div class="control-slider-compact">
+          <input type="range" id="renderSharpness" min="0" max="100" value="0" class="slider">
+          <span class="control-value-compact" id="renderSharpnessValue">0%</span>
+         </div>
+        </div>
+
+        <div class="render-control-group-compact">
+         <label class="control-label">☀️ Brilho</label>
+         <div class="control-slider-compact">
+          <input type="range" id="renderBrightness" min="0" max="200" value="100" class="slider">
+          <span class="control-value-compact" id="renderBrightnessValue">100%</span>
+         </div>
+        </div>
+
+        <div class="render-control-group-compact">
+         <label class="control-label">🌡️ Temperatura</label>
+         <div class="control-slider-compact">
+          <input type="range" id="renderTemperature" min="-50" max="50" value="0" class="slider">
+          <span class="control-value-compact" id="renderTemperatureValue">Neutra</span>
+         </div>
+        </div>
+       </div>
+
+       <!-- Botões de Ação -->
+       <div class="render-section">
+        <button type="button" class="render-btn-apply" onclick="applyRenderEnhance()" id="renderApplyBtn" style="display: none;">✓ Aplicar</button>
+        <button type="button" class="render-btn-download" onclick="downloadRenderImage()" id="renderDownloadBtn" style="display: none;">💾 Salvar</button>
+        <button type="button" class="render-btn-reset" onclick="resetRenderControls()">🔄 Resetar</button>
+       </div>
+      </div>
+
+      <!-- RIGHT PANEL - Preview -->
+      <div class="render-right-panel">
+       <div class="render-preview-container">
+        <div id="renderPreviewPlaceholder" class="render-preview-placeholder">
+         <svg width="100" height="100" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" style="opacity: 0.3;">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" />
+         </svg>
+         <p>Carregue um render 3D para começar</p>
+        </div>
+        <img id="renderPreviewImg" class="render-preview-img" style="display: none;" alt="Preview">
+       </div>
+      </div>
+     </div>
+
+     <!-- Status Message -->
+     <div id="renderStatus" class="status-message"></div>
+    </div>
+   </div>
+  </div>
+  <script src="main.js" type="text/javascript"></script>
+</body>
+</html>
