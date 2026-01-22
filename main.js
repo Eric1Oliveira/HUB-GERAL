@@ -1647,50 +1647,162 @@
 
     function applyPreset(presetName) {
       const presets = {
-        // Influencer - Cores vibrantes, tons quentes/frios, feed harmonioso
-        influencer: { 
-          contrast: 120, brightness: 105, saturation: 145, 
-          sharpness: 25, denoising: 10, clarity: 20, smoothing: 0 
+        // REALISMO NATURAL
+        photorealistic: { 
+          contrast: 108, brightness: 100, saturation: 102, 
+          sharpness: 18, denoising: 15, clarity: 12, smoothing: 0 
         },
-        // Cinemático - Alto contraste, pretos profundos, tons urbanos e dramáticos
-        cinematic: { 
-          contrast: 145, brightness: 95, saturation: 85, 
-          sharpness: 40, denoising: 20, clarity: 35, smoothing: 5 
+        natural: { 
+          contrast: 105, brightness: 100, saturation: 100, 
+          sharpness: 15, denoising: 10, clarity: 8, smoothing: 0 
         },
-        // Casamento/Família - Suaves, tons de pele realçados, estilo "film look"
-        wedding: { 
-          contrast: 105, brightness: 108, saturation: 110, 
-          sharpness: 15, denoising: 35, clarity: 10, smoothing: 15 
+        balanced: { 
+          contrast: 100, brightness: 100, saturation: 100, 
+          sharpness: 10, denoising: 5, clarity: 5, smoothing: 0 
         },
-        // Paisagem - Cores ricas, detalhes aprimorados em céus e natureza
-        landscape: { 
-          contrast: 130, brightness: 108, saturation: 155, 
-          sharpness: 45, denoising: 10, clarity: 40, smoothing: 0 
-        },
-        // Retrato - Pele suave, olhos vivos, tons naturais
+
+        // RETRATO
         portrait: { 
-          contrast: 115, brightness: 100, saturation: 125, 
-          sharpness: 20, denoising: 30, clarity: 15, smoothing: 8 
+          contrast: 115, brightness: 102, saturation: 125, 
+          sharpness: 20, denoising: 35, clarity: 10, smoothing: 8 
         },
-        // Produto - Cores fiéis, detalhes nítidos
+        portrait_studio: { 
+          contrast: 125, brightness: 105, saturation: 120, 
+          sharpness: 25, denoising: 40, clarity: 15, smoothing: 12 
+        },
+
+        // CASAMENTO/EVENTOS
+        wedding: { 
+          contrast: 110, brightness: 108, saturation: 115, 
+          sharpness: 18, denoising: 40, clarity: 12, smoothing: 10 
+        },
+
+        // PAISAGEM/NATUREZA
+        landscape: { 
+          contrast: 135, brightness: 110, saturation: 160, 
+          sharpness: 50, denoising: 10, clarity: 45, smoothing: 0 
+        },
+        nature: { 
+          contrast: 130, brightness: 108, saturation: 155, 
+          sharpness: 45, denoising: 12, clarity: 40, smoothing: 0 
+        },
+        wildlife: { 
+          contrast: 145, brightness: 105, saturation: 165, 
+          sharpness: 60, denoising: 8, clarity: 50, smoothing: 0 
+        },
+
+        // COMERCIAL - PRODUTO
         product: { 
-          contrast: 135, brightness: 112, saturation: 105, 
+          contrast: 140, brightness: 115, saturation: 108, 
+          sharpness: 65, denoising: 20, clarity: 50, smoothing: 0 
+        },
+        ecommerce: { 
+          contrast: 135, brightness: 118, saturation: 125, 
           sharpness: 55, denoising: 15, clarity: 40, smoothing: 0 
         },
-        // Comida - Cores quentes e apetitosas
+        jewelry: { 
+          contrast: 155, brightness: 120, saturation: 105, 
+          sharpness: 75, denoising: 25, clarity: 60, smoothing: 0 
+        },
+
+        // COMERCIAL - ALIMENTOS
         food: { 
-          contrast: 120, brightness: 115, saturation: 170, 
-          sharpness: 30, denoising: 8, clarity: 20, smoothing: 0 
+          contrast: 125, brightness: 118, saturation: 180, 
+          sharpness: 35, denoising: 10, clarity: 25, smoothing: 0 
         },
-        // Preto e Branco - Clássico e intemporal
-        blackwhite: { 
-          contrast: 150, brightness: 100, saturation: 0, 
-          sharpness: 45, denoising: 25, clarity: 35, smoothing: 3 
+
+        // COMERCIAL - ARQUITETURA/IMÓVEL
+        architecture: { 
+          contrast: 132, brightness: 110, saturation: 105, 
+          sharpness: 50, denoising: 15, clarity: 40, smoothing: 0 
         },
-        // HDR - Detalhes em todos os tons
+        real_estate: { 
+          contrast: 125, brightness: 115, saturation: 120, 
+          sharpness: 40, denoising: 18, clarity: 30, smoothing: 0 
+        },
+
+        // REDES SOCIAIS
+        instagram: { 
+          contrast: 125, brightness: 108, saturation: 150, 
+          sharpness: 32, denoising: 15, clarity: 28, smoothing: 0 
+        },
+        tiktok: { 
+          contrast: 135, brightness: 110, saturation: 165, 
+          sharpness: 40, denoising: 12, clarity: 32, smoothing: 0 
+        },
+        thumbnail: { 
+          contrast: 160, brightness: 112, saturation: 155, 
+          sharpness: 70, denoising: 8, clarity: 55, smoothing: 0 
+        },
+
+        // CINEMATOGRÁFICO
+        cinematic: { 
+          contrast: 150, brightness: 98, saturation: 90, 
+          sharpness: 45, denoising: 25, clarity: 40, smoothing: 5 
+        },
+        cinematic_warm: { 
+          contrast: 148, brightness: 105, saturation: 95, 
+          sharpness: 42, denoising: 22, clarity: 38, smoothing: 4 
+        },
+        cinematic_cool: { 
+          contrast: 152, brightness: 95, saturation: 85, 
+          sharpness: 48, denoising: 28, clarity: 42, smoothing: 6 
+        },
+
+        // P&B PROFISSIONAL
+        noir: { 
+          contrast: 160, brightness: 100, saturation: 0, 
+          sharpness: 55, denoising: 30, clarity: 50, smoothing: 8 
+        },
+        bw: { 
+          contrast: 140, brightness: 100, saturation: 0, 
+          sharpness: 45, denoising: 25, clarity: 40, smoothing: 5 
+        },
+
+        // VINTAGE/RETRO
+        vintage: { 
+          contrast: 115, brightness: 105, saturation: 85, 
+          sharpness: 25, denoising: 20, clarity: 20, smoothing: 12 
+        },
+        sepia: { 
+          contrast: 118, brightness: 105, saturation: 70, 
+          sharpness: 28, denoising: 22, clarity: 22, smoothing: 10 
+        },
+        faded: { 
+          contrast: 95, brightness: 110, saturation: 65, 
+          sharpness: 15, denoising: 18, clarity: 10, smoothing: 8 
+        },
+
+        // EFEITOS AVANÇADOS
+        vivid: { 
+          contrast: 130, brightness: 105, saturation: 170, 
+          sharpness: 40, denoising: 12, clarity: 35, smoothing: 0 
+        },
+        high_contrast: { 
+          contrast: 165, brightness: 100, saturation: 95, 
+          sharpness: 60, denoising: 20, clarity: 55, smoothing: 0 
+        },
+        matte: { 
+          contrast: 112, brightness: 105, saturation: 95, 
+          sharpness: 12, denoising: 28, clarity: 8, smoothing: 6 
+        },
         hdr: { 
-          contrast: 155, brightness: 120, saturation: 135, 
-          sharpness: 50, denoising: 20, clarity: 45, smoothing: 0 
+          contrast: 155, brightness: 122, saturation: 140, 
+          sharpness: 55, denoising: 20, clarity: 50, smoothing: 0 
+        },
+
+        // CORREÇÕES TÉCNICAS
+        exposure_fix: { 
+          contrast: 110, brightness: 125, saturation: 105, 
+          sharpness: 25, denoising: 20, clarity: 18, smoothing: 0 
+        },
+        overexposed_fix: { 
+          contrast: 115, brightness: 80, saturation: 105, 
+          sharpness: 30, denoising: 15, clarity: 20, smoothing: 0 
+        },
+        white_balance: { 
+          contrast: 108, brightness: 102, saturation: 105, 
+          sharpness: 20, denoising: 12, clarity: 15, smoothing: 0 
         }
       };
 
@@ -1869,42 +1981,68 @@
       const smoothing = parseInt(document.getElementById('smoothingSlider').value) || 0;
 
       const img = new Image();
+      img.crossOrigin = 'anonymous';
       const url = URL.createObjectURL(currentEnhanceFile);
 
       img.onload = function() {
+        // QUALIDADE MÁXIMA: Canvas em resolução 2x para anti-aliasing
+        const scale = 1.5; // Oversampling para anti-aliasing
         const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
         
-        // Apply CSS filters (fastest method)
+        // Escalar imagem com alta qualidade
+        ctx.scale(scale, scale);
+        
+        // Apply CSS filters with HIGH QUALITY (faster e preserva qualidade)
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
         ctx.filter = `contrast(${contrast}%) brightness(${brightness}%) saturate(${saturation}%)`;
         ctx.drawImage(img, 0, 0);
+        
+        // Resetar scale para processamento de pixels
+        ctx.resetTransform();
 
-        // Apply advanced filters only if needed (optimized for performance)
-        if (clarity > 0 || denoising > 0 || sharpness > 0) {
+        // Apply advanced filters apenas se necessário (optimizado)
+        if (clarity > 0 || denoising > 0 || sharpness > 0 || smoothing > 0) {
           const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
           
-          if (clarity > 0) {
-            applyClarityFilterOptimized(imageData, clarity);
-          }
-          
+          // Denoising PRIMEIRO (remove ruído antes de outras operações)
           if (denoising > 0) {
-            applyDenoisingFilterOptimized(imageData, denoising);
+            applyAdvancedDenoising(imageData, denoising);
           }
           
+          // Clarity (micro-contraste)
+          if (clarity > 0) {
+            applyProfessionalClarity(imageData, clarity);
+          }
+          
+          // Sharpness DEPOIS (para não amplificar ruído)
           if (sharpness > 0) {
-            applySharpnessKernelOptimized(imageData, sharpness / 100);
+            applyProfessionalSharpness(imageData, sharpness);
           }
           
           ctx.putImageData(imageData, 0, 0);
         }
 
+        // Suavização aplicada no canvas final (preserva detalhes)
         if (smoothing > 0) {
-          applySmoothingFilter(canvas, smoothing);
+          applySmoothingFilterProfessional(canvas, smoothing);
         }
 
-        canvas.toBlob(blob => {
+        // DOWNSAMPLING com qualidade: reduzir para tamanho original com interpolação
+        const finalCanvas = document.createElement('canvas');
+        finalCanvas.width = img.width;
+        finalCanvas.height = img.height;
+        const finalCtx = finalCanvas.getContext('2d');
+        
+        finalCtx.imageSmoothingEnabled = true;
+        finalCtx.imageSmoothingQuality = 'high';
+        finalCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, img.width, img.height);
+
+        // Salvar em MÁXIMA QUALIDADE JPEG (1.0 = 100%)
+        finalCanvas.toBlob(blob => {
           currentEnhancedBlob = blob;
           const previewUrl = URL.createObjectURL(blob);
           
@@ -1917,10 +2055,174 @@
           document.getElementById('enhanceDownloadBtn').style.display = 'block';
           
           URL.revokeObjectURL(url);
-        }, 'image/jpeg', 0.95);
+        }, 'image/jpeg', 1.0); // QUALIDADE MÁXIMA
       };
 
       img.src = url;
+    }
+
+    // DENOISING AVANÇADO - Reduz ruído preservando detalhes
+    function applyAdvancedDenoising(imageData, amount) {
+      const data = imageData.data;
+      const width = imageData.width;
+      const height = imageData.height;
+      const factor = Math.min(amount / 100, 0.8);
+      
+      // Aplicar bilateral filter (preserva arestas enquanto suaviza)
+      const tempData = new Uint8ClampedArray(data);
+      const spatialSigma = 1.5;
+      const rangeSigma = 30;
+      
+      for (let i = 0; i < data.length; i += 4) {
+        const pixelIdx = i / 4;
+        const y = Math.floor(pixelIdx / width);
+        const x = pixelIdx % width;
+        
+        if (x === 0 || x === width - 1 || y === 0 || y === height - 1) continue;
+        
+        let sumR = 0, sumG = 0, sumB = 0, sumWeights = 0;
+        
+        // Verificar vizinhança 5x5
+        for (let dy = -2; dy <= 2; dy++) {
+          for (let dx = -2; dx <= 2; dx++) {
+            const nx = Math.min(Math.max(x + dx, 0), width - 1);
+            const ny = Math.min(Math.max(y + dy, 0), height - 1);
+            const neighborIdx = (ny * width + nx) * 4;
+            
+            // Distância espacial
+            const spatialDist = Math.sqrt(dx * dx + dy * dy);
+            const spatialWeight = Math.exp(-(spatialDist * spatialDist) / (2 * spatialSigma * spatialSigma));
+            
+            // Distância de range (cor)
+            const dR = tempData[i] - tempData[neighborIdx];
+            const dG = tempData[i + 1] - tempData[neighborIdx + 1];
+            const dB = tempData[i + 2] - tempData[neighborIdx + 2];
+            const colorDist = Math.sqrt(dR * dR + dG * dG + dB * dB);
+            const rangeWeight = Math.exp(-(colorDist * colorDist) / (2 * rangeSigma * rangeSigma));
+            
+            const weight = spatialWeight * rangeWeight;
+            
+            sumR += tempData[neighborIdx] * weight;
+            sumG += tempData[neighborIdx + 1] * weight;
+            sumB += tempData[neighborIdx + 2] * weight;
+            sumWeights += weight;
+          }
+        }
+        
+        if (sumWeights > 0) {
+          data[i] = Math.round(tempData[i] * (1 - factor) + (sumR / sumWeights) * factor);
+          data[i + 1] = Math.round(tempData[i + 1] * (1 - factor) + (sumG / sumWeights) * factor);
+          data[i + 2] = Math.round(tempData[i + 2] * (1 - factor) + (sumB / sumWeights) * factor);
+        }
+      }
+    }
+
+    // CLARITY PROFISSIONAL - Micro-contraste com proteção de detalhes
+    function applyProfessionalClarity(imageData, amount) {
+      const data = imageData.data;
+      const width = imageData.width;
+      const height = imageData.height;
+      const tempData = new Uint8ClampedArray(data);
+      const factor = Math.min(amount / 100, 1);
+      const radius = 2;
+      
+      for (let i = width * 4 + 4; i < data.length - width * 4 - 4; i += 4) {
+        const pixelIdx = i / 4;
+        if ((pixelIdx % width < radius) || (pixelIdx % width >= width - radius)) continue;
+        
+        let sumR = 0, sumG = 0, sumB = 0, count = 0;
+        
+        // Calcular média local (Gaussian blur para comparação)
+        for (let dy = -radius; dy <= radius; dy++) {
+          for (let dx = -radius; dx <= radius; dx++) {
+            const offset = i + (dy * width + dx) * 4;
+            const weight = Math.exp(-(dx * dx + dy * dy) / (2 * radius * radius));
+            sumR += tempData[offset] * weight;
+            sumG += tempData[offset + 1] * weight;
+            sumB += tempData[offset + 2] * weight;
+            count += weight;
+          }
+        }
+        
+        const avgR = sumR / count;
+        const avgG = sumG / count;
+        const avgB = sumB / count;
+        
+        // Aplicar clarity
+        data[i] = Math.max(0, Math.min(255, tempData[i] + (tempData[i] - avgR) * factor));
+        data[i + 1] = Math.max(0, Math.min(255, tempData[i + 1] + (tempData[i + 1] - avgG) * factor));
+        data[i + 2] = Math.max(0, Math.min(255, tempData[i + 2] + (tempData[i + 2] - avgB) * factor));
+      }
+    }
+
+    // SHARPNESS PROFISSIONAL - Unsharp Mask para qualidade extrema
+    function applyProfessionalSharpness(imageData, amount) {
+      const data = imageData.data;
+      const width = imageData.width;
+      const height = imageData.height;
+      const tempData = new Uint8ClampedArray(data);
+      const sharpnessFactor = Math.min(amount / 100, 2);
+      const radius = 1;
+      
+      for (let i = width * 4 + 4; i < data.length - width * 4 - 4; i += 4) {
+        const pixelIdx = i / 4;
+        if ((pixelIdx % width < radius) || (pixelIdx % width >= width - radius)) continue;
+        
+        // Unsharp mask kernel
+        let blurR = 0, blurG = 0, blurB = 0;
+        const w4 = width * 4;
+        
+        const kernel = [1, 2, 1, 2, 4, 2, 1, 2, 1];
+        const kernelSum = 16;
+        
+        blurR = (tempData[i - w4 - 4] * kernel[0] + 
+                 tempData[i - w4] * kernel[1] + 
+                 tempData[i - w4 + 4] * kernel[2] +
+                 tempData[i - 4] * kernel[3] + 
+                 tempData[i] * kernel[4] + 
+                 tempData[i + 4] * kernel[5] +
+                 tempData[i + w4 - 4] * kernel[6] + 
+                 tempData[i + w4] * kernel[7] + 
+                 tempData[i + w4 + 4] * kernel[8]) / kernelSum;
+        
+        blurG = (tempData[i - w4 - 3] * kernel[0] + 
+                 tempData[i - w4 + 1] * kernel[1] + 
+                 tempData[i - w4 + 5] * kernel[2] +
+                 tempData[i - 3] * kernel[3] + 
+                 tempData[i + 1] * kernel[4] + 
+                 tempData[i + 5] * kernel[5] +
+                 tempData[i + w4 - 3] * kernel[6] + 
+                 tempData[i + w4 + 1] * kernel[7] + 
+                 tempData[i + w4 + 5] * kernel[8]) / kernelSum;
+        
+        blurB = (tempData[i - w4 - 2] * kernel[0] + 
+                 tempData[i - w4 + 2] * kernel[1] + 
+                 tempData[i - w4 + 6] * kernel[2] +
+                 tempData[i - 2] * kernel[3] + 
+                 tempData[i + 2] * kernel[4] + 
+                 tempData[i + 6] * kernel[5] +
+                 tempData[i + w4 - 2] * kernel[6] + 
+                 tempData[i + w4 + 2] * kernel[7] + 
+                 tempData[i + w4 + 6] * kernel[8]) / kernelSum;
+        
+        // Aplicar unsharp mask
+        data[i] = Math.max(0, Math.min(255, tempData[i] + (tempData[i] - blurR) * sharpnessFactor));
+        data[i + 1] = Math.max(0, Math.min(255, tempData[i + 1] + (tempData[i + 1] - blurG) * sharpnessFactor));
+        data[i + 2] = Math.max(0, Math.min(255, tempData[i + 2] + (tempData[i + 2] - blurB) * sharpnessFactor));
+      }
+    }
+
+    // SUAVIZAÇÃO PROFISSIONAL - Preserva detalhes enquanto suaviza
+    function applySmoothingFilterProfessional(canvas, amount) {
+      const ctx = canvas.getContext('2d');
+      const blurAmount = Math.max(0.5, Math.min(amount / 10, 3));
+      
+      // Aplicar Gaussian blur com qualidade
+      ctx.filter = `blur(${blurAmount}px)`;
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.filter = 'none';
+      ctx.putImageData(imageData, 0, 0);
     }
 
     function downloadEnhancedImage() {
@@ -1938,7 +2240,7 @@
       a.click();
       URL.revokeObjectURL(url);
       
-      showImageStatus('✓ Imagem salva com sucesso!');
+      showImageStatus('✓ Imagem salva em MÁXIMA QUALIDADE!');
       currentEnhancedBlob = null;
       removeEnhanceFile();
     }
@@ -2125,7 +2427,23 @@
     let currentRenderFile = null;
     let currentRenderBlob = null;
     let renderEnhanceTimeout;
+    let batchFiles = [];
+    let processedBatchBlobs = [];
+    let currentUploadMode = 'single';
 
+    // Mode Toggle
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentUploadMode = this.dataset.mode;
+        
+        document.getElementById('singleUploadMode').style.display = currentUploadMode === 'single' ? 'flex' : 'none';
+        document.getElementById('batchUploadMode').style.display = currentUploadMode === 'batch' ? 'flex' : 'none';
+      });
+    });
+
+    // Single File Mode
     document.getElementById('renderFile').addEventListener('change', function(e) {
       if (e.target.files[0]) handleRenderFileSelect(e.target.files[0]);
     });
@@ -2150,6 +2468,33 @@
       document.getElementById('renderFile').click();
     });
 
+    // Batch Mode
+    document.getElementById('renderBatchFiles').addEventListener('change', function(e) {
+      if (e.target.files.length > 0) {
+        handleBatchFilesSelect(Array.from(e.target.files));
+      }
+    });
+
+    const renderBatchUploadArea = document.getElementById('renderBatchUploadArea');
+    renderBatchUploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      renderBatchUploadArea.classList.add('dragover');
+    });
+    renderBatchUploadArea.addEventListener('dragleave', () => {
+      renderBatchUploadArea.classList.remove('dragover');
+    });
+    renderBatchUploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      renderBatchUploadArea.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) {
+        handleBatchFilesSelect(Array.from(e.dataTransfer.files));
+      }
+    });
+
+    renderBatchUploadArea.addEventListener('click', () => {
+      document.getElementById('renderBatchFiles').click();
+    });
+
     function handleRenderFileSelect(file) {
       if (!file.type.startsWith('image/')) {
         showRenderStatus('Por favor, selecione um arquivo de imagem válido', true);
@@ -2159,7 +2504,7 @@
       currentRenderFile = file;
       document.getElementById('renderFileName').textContent = file.name;
       document.getElementById('renderFileSize').textContent = formatFileSize(file.size);
-      document.getElementById('renderSelectedFile').classList.add('show');
+      document.getElementById('renderSelectedFile').style.display = 'block';
       document.getElementById('renderApplyBtn').style.display = 'inline-block';
 
       // Show preview
@@ -2172,10 +2517,58 @@
       reader.readAsDataURL(file);
     }
 
+    function handleBatchFilesSelect(files) {
+      const validFiles = files.filter(f => f.type.startsWith('image/'));
+      if (validFiles.length === 0) {
+        showRenderStatus('Nenhum arquivo de imagem válido selecionado', true);
+        return;
+      }
+      
+      batchFiles = validFiles;
+      processedBatchBlobs = [];
+      updateBatchFilesList();
+      document.getElementById('renderBatchProcessBtn').style.display = 'inline-block';
+    }
+
+    function updateBatchFilesList() {
+      const list = document.getElementById('batchFilesList');
+      list.innerHTML = '';
+      
+      batchFiles.forEach((file, idx) => {
+        const item = document.createElement('div');
+        item.className = 'batch-item';
+        item.innerHTML = `
+          <div class="batch-item-name" title="${file.name}">${idx + 1}. ${file.name}</div>
+          <button type="button" class="batch-item-remove" onclick="removeBatchFile(${idx})">✕</button>
+        `;
+        list.appendChild(item);
+      });
+      
+      if (batchFiles.length > 0) {
+        document.getElementById('renderBatchList').style.display = 'block';
+      } else {
+        document.getElementById('renderBatchList').style.display = 'none';
+        document.getElementById('renderBatchProcessBtn').style.display = 'none';
+        document.getElementById('renderBatchZipBtn').style.display = 'none';
+      }
+    }
+
+    function removeBatchFile(index) {
+      batchFiles.splice(index, 1);
+      updateBatchFilesList();
+    }
+
+    function clearBatchFiles() {
+      batchFiles = [];
+      processedBatchBlobs = [];
+      document.getElementById('renderBatchFiles').value = '';
+      updateBatchFilesList();
+    }
+
     function removeRenderFile() {
       currentRenderFile = null;
       document.getElementById('renderFile').value = '';
-      document.getElementById('renderSelectedFile').classList.remove('show');
+      document.getElementById('renderSelectedFile').style.display = 'none';
       document.getElementById('renderApplyBtn').style.display = 'none';
       document.getElementById('renderDownloadBtn').style.display = 'none';
       document.getElementById('renderPreviewImg').style.display = 'none';
@@ -2239,14 +2632,30 @@
       updateRenderEnhanceRealTime();
     });
 
+    document.getElementById('renderClarity').addEventListener('input', function() {
+      document.getElementById('renderClarityValue').textContent = this.value + '%';
+      updateRenderEnhanceRealTime();
+    });
+
+    document.getElementById('renderVibrance').addEventListener('input', function() {
+      document.getElementById('renderVibranceValue').textContent = this.value + '%';
+      updateRenderEnhanceRealTime();
+    });
+
     function applyRenderPreset(presetName) {
       const presets = {
-        natural: { lighting: 100, contrast: 100, saturation: 110, sharpness: 15, brightness: 100, temperature: 0 },
-        vibrant: { lighting: 110, contrast: 130, saturation: 150, sharpness: 25, brightness: 105, temperature: 10 },
-        professional: { lighting: 105, contrast: 115, saturation: 120, sharpness: 30, brightness: 102, temperature: 5 },
-        showcase: { lighting: 120, contrast: 140, saturation: 140, sharpness: 40, brightness: 110, temperature: 15 },
-        warm: { lighting: 115, contrast: 110, saturation: 125, sharpness: 20, brightness: 108, temperature: 30 },
-        cool: { lighting: 105, contrast: 120, saturation: 110, sharpness: 25, brightness: 98, temperature: -30 }
+        photorealistic: { lighting: 105, contrast: 110, saturation: 105, sharpness: 20, brightness: 100, temperature: 2, clarity: 15, vibrance: 10 },
+        refined: { lighting: 103, contrast: 108, saturation: 108, sharpness: 18, brightness: 101, temperature: 1, clarity: 12, vibrance: 8 },
+        balanced: { lighting: 100, contrast: 100, saturation: 100, sharpness: 15, brightness: 100, temperature: 0, clarity: 0, vibrance: 0 },
+        showcase: { lighting: 115, contrast: 125, saturation: 125, sharpness: 35, brightness: 108, temperature: 8, clarity: 25, vibrance: 20 },
+        cinema: { lighting: 112, contrast: 120, saturation: 115, sharpness: 30, brightness: 105, temperature: 15, clarity: 20, vibrance: 15 },
+        gallery: { lighting: 108, contrast: 115, saturation: 120, sharpness: 28, brightness: 103, temperature: 5, clarity: 18, vibrance: 12 },
+        warm_natural: { lighting: 110, contrast: 105, saturation: 110, sharpness: 20, brightness: 105, temperature: 25, clarity: 10, vibrance: 8 },
+        cool_natural: { lighting: 105, contrast: 110, saturation: 105, sharpness: 20, brightness: 98, temperature: -25, clarity: 10, vibrance: 8 },
+        daylight: { lighting: 120, contrast: 115, saturation: 112, sharpness: 25, brightness: 110, temperature: 10, clarity: 15, vibrance: 12 },
+        high_contrast: { lighting: 100, contrast: 150, saturation: 95, sharpness: 40, brightness: 100, temperature: 0, clarity: 30, vibrance: 5 },
+        vivid: { lighting: 105, contrast: 130, saturation: 150, sharpness: 35, brightness: 105, temperature: 5, clarity: 20, vibrance: 30 },
+        matte: { lighting: 110, contrast: 105, saturation: 100, sharpness: 10, brightness: 102, temperature: 2, clarity: 8, vibrance: 5 }
       };
 
       const preset = presets[presetName];
@@ -2276,9 +2685,15 @@
         else if (tempVal > 20) temp = '🔥 Muito Quente';
         else if (tempVal > 0) temp = 'Quente';
         document.getElementById('renderTemperatureValue').textContent = temp;
+
+        document.getElementById('renderClarity').value = preset.clarity;
+        document.getElementById('renderClarityValue').textContent = preset.clarity + '%';
+        
+        document.getElementById('renderVibrance').value = preset.vibrance;
+        document.getElementById('renderVibranceValue').textContent = preset.vibrance + '%';
         
         renderEnhanceTimeout = setTimeout(() => {
-          if (currentRenderFile) {
+          if (currentRenderFile || batchFiles.length > 0) {
             applyRenderEnhance();
             showRenderStatus(`✓ Preset "${presetName}" aplicado!`);
           }
@@ -2286,8 +2701,9 @@
       }
     }
 
-    function applyRenderEnhance() {
-      if (!currentRenderFile) return;
+    function applyRenderEnhance(file = null) {
+      const targetFile = file || currentRenderFile;
+      if (!targetFile) return;
 
       const lighting = parseInt(document.getElementById('renderLighting').value);
       const contrast = parseInt(document.getElementById('renderContrast').value);
@@ -2295,61 +2711,285 @@
       const sharpness = parseInt(document.getElementById('renderSharpness').value);
       const brightness = parseInt(document.getElementById('renderBrightness').value);
       const temperature = parseInt(document.getElementById('renderTemperature').value);
+      const clarity = parseInt(document.getElementById('renderClarity').value);
+      const vibrance = parseInt(document.getElementById('renderVibrance').value);
 
-      const img = new Image();
-      const url = URL.createObjectURL(currentRenderFile);
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        const url = URL.createObjectURL(targetFile);
 
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-
-        // Apply lighting and color filters
-        let tempFilter = 'sepia(0%)';
-        if (temperature > 0) {
-          tempFilter = `sepia(${temperature / 50 * 10}%)`;
-        }
-
-        ctx.filter = `contrast(${contrast}%) brightness(${brightness}%) saturate(${saturation}%) ${tempFilter}`;
-        ctx.drawImage(img, 0, 0);
-
-        // Apply sharpness if needed
-        if (sharpness > 0) {
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const data = imageData.data;
-          const width = canvas.width;
-          const kernel = [0, -sharpness / 100, 0, -sharpness / 100, 1 + 4 * (sharpness / 100), -sharpness / 100, 0, -sharpness / 100, 0];
+        img.onload = function() {
+          // QUALIDADE MÁXIMA: Canvas em resolução 1.5x para anti-aliasing
+          const scale = 1.5;
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width * scale;
+          canvas.height = img.height * scale;
+          const ctx = canvas.getContext('2d', { willReadFrequently: true });
           
-          for (let i = width * 4; i < data.length - width * 4; i++) {
-            if ((i / 4) % width > 0 && (i / 4) % width < width - 1) {
-              for (let c = 0; c < 3; c++) {
-                let pixel = 0;
-                pixel += data[i - width * 4 + c] * kernel[0];
-                pixel += data[i - 4 + c] * kernel[1];
-                pixel += data[i + c] * kernel[2];
-                pixel += data[i - width * 4 + 4 + c] * kernel[3];
-                pixel += data[i + 4 + c] * kernel[4];
-                pixel += data[i + width * 4 - 4 + c] * kernel[5];
-                pixel += data[i + width * 4 + c] * kernel[6];
-                pixel += data[i + width * 4 + 4 + c] * kernel[7];
-                data[i + c] = Math.max(0, Math.min(255, pixel));
-              }
-            }
+          // Scale para anti-aliasing
+          ctx.scale(scale, scale);
+          
+          // Construir filtro CSS com proteção contra clipping
+          let tempFilter = 'sepia(0%)';
+          if (temperature > 0) {
+            tempFilter = `sepia(${Math.min(temperature / 50 * 10, 20)}%)`;
+          } else if (temperature < 0) {
+            tempFilter = `sepia(${Math.max(temperature / 50 * 10, -20)}%)`;
           }
-          ctx.putImageData(imageData, 0, 0);
-        }
 
-        canvas.toBlob(blob => {
-          currentRenderBlob = blob;
-          const previewUrl = URL.createObjectURL(blob);
-          document.getElementById('renderPreviewImg').src = previewUrl;
-          document.getElementById('renderDownloadBtn').style.display = 'inline-block';
+          // Limitar brightness para evitar clipping
+          const safeBrightness = Math.min(brightness, 140);
+          
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.filter = `contrast(${contrast}%) brightness(${safeBrightness}%) saturate(${saturation}%) ${tempFilter}`;
+          ctx.drawImage(img, 0, 0);
+
+          // Reset transform para processamento de pixels
+          ctx.resetTransform();
+
+          // Aplicar nitidez com qualidade superior
+          if (sharpness > 0) {
+            applyRenderSharpnessAdvanced(ctx, canvas, sharpness);
+          }
+
+          // Aplicar clareza (micro-contraste)
+          if (clarity !== 0) {
+            applyRenderClarityAdvanced(ctx, canvas, clarity);
+          }
+
+          // Aplicar vibração
+          if (vibrance !== 0) {
+            applyRenderVibranceAdvanced(ctx, canvas, vibrance);
+          }
+
+          // DOWNSAMPLING com qualidade
+          const finalCanvas = document.createElement('canvas');
+          finalCanvas.width = img.width;
+          finalCanvas.height = img.height;
+          const finalCtx = finalCanvas.getContext('2d');
+          
+          finalCtx.imageSmoothingEnabled = true;
+          finalCtx.imageSmoothingQuality = 'high';
+          finalCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, img.width, img.height);
+
+          finalCanvas.toBlob(blob => {
+            URL.revokeObjectURL(url);
+            if (file) {
+              resolve(blob);
+            } else {
+              currentRenderBlob = blob;
+              const previewUrl = URL.createObjectURL(blob);
+              document.getElementById('renderPreviewImg').src = previewUrl;
+              document.getElementById('renderDownloadBtn').style.display = 'inline-block';
+              resolve(blob);
+            }
+          }, 'image/jpeg', 1.0); // MÁXIMA QUALIDADE
+        };
+
+        img.onerror = () => {
           URL.revokeObjectURL(url);
-        }, 'image/jpeg', 0.95);
-      };
+          resolve(null);
+        };
 
-      img.src = url;
+        img.src = url;
+      });
+    }
+
+    // RENDER - SHARPNESS ADVANCED
+    function applyRenderSharpnessAdvanced(ctx, canvas, amount) {
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const width = canvas.width;
+      const sharpnessFactor = Math.min(amount / 100, 2);
+      const tempData = new Uint8ClampedArray(data);
+      const w4 = width * 4;
+      
+      for (let i = w4 + 4; i < data.length - w4 - 4; i += 4) {
+        if ((i / 4) % width < 1 || (i / 4) % width >= width - 1) continue;
+        
+        const kernel = [1, 2, 1, 2, 4, 2, 1, 2, 1];
+        const kernelSum = 16;
+        
+        for (let c = 0; c < 3; c++) {
+          const blur = (tempData[i - w4 - 4 + c] * kernel[0] + 
+                        tempData[i - w4 + c] * kernel[1] + 
+                        tempData[i - w4 + 4 + c] * kernel[2] +
+                        tempData[i - 4 + c] * kernel[3] + 
+                        tempData[i + c] * kernel[4] + 
+                        tempData[i + 4 + c] * kernel[5] +
+                        tempData[i + w4 - 4 + c] * kernel[6] + 
+                        tempData[i + w4 + c] * kernel[7] + 
+                        tempData[i + w4 + 4 + c] * kernel[8]) / kernelSum;
+          
+          data[i + c] = Math.max(0, Math.min(255, tempData[i + c] + (tempData[i + c] - blur) * sharpnessFactor));
+        }
+      }
+      
+      ctx.putImageData(imageData, 0, 0);
+    }
+
+    // RENDER - CLARITY ADVANCED
+    function applyRenderClarityAdvanced(ctx, canvas, amount) {
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const width = canvas.width;
+      const tempData = new Uint8ClampedArray(data);
+      const factor = Math.min(Math.abs(amount) / 100, 1);
+      const radius = 2;
+      const w4 = width * 4;
+      
+      for (let i = w4 + 4; i < data.length - w4 - 4; i += 4) {
+        const pixelIdx = i / 4;
+        if ((pixelIdx % width < radius) || (pixelIdx % width >= width - radius)) continue;
+        
+        let sumR = 0, sumG = 0, sumB = 0, sumWeights = 0;
+        
+        for (let dy = -radius; dy <= radius; dy++) {
+          for (let dx = -radius; dx <= radius; dx++) {
+            const offset = i + (dy * width + dx) * 4;
+            const weight = Math.exp(-(dx * dx + dy * dy) / (2 * radius * radius));
+            sumR += tempData[offset] * weight;
+            sumG += tempData[offset + 1] * weight;
+            sumB += tempData[offset + 2] * weight;
+            sumWeights += weight;
+          }
+        }
+        
+        const avgR = sumR / sumWeights;
+        const avgG = sumG / sumWeights;
+        const avgB = sumB / sumWeights;
+        
+        data[i] = Math.max(0, Math.min(255, tempData[i] + (tempData[i] - avgR) * factor));
+        data[i + 1] = Math.max(0, Math.min(255, tempData[i + 1] + (tempData[i + 1] - avgG) * factor));
+        data[i + 2] = Math.max(0, Math.min(255, tempData[i + 2] + (tempData[i + 2] - avgB) * factor));
+      }
+      
+      ctx.putImageData(imageData, 0, 0);
+    }
+
+    // RENDER - VIBRANCE ADVANCED
+    function applyRenderVibranceAdvanced(ctx, canvas, amount) {
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const tempData = new Uint8ClampedArray(data);
+      const vibranceAmount = Math.abs(amount) / 100;
+      const isIncrease = amount > 0;
+      
+      for (let i = 0; i < data.length; i += 4) {
+        let r = tempData[i];
+        let g = tempData[i + 1];
+        let b = tempData[i + 2];
+        
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const luminance = (max + min) / 2;
+        
+        if (isIncrease) {
+          if (max !== min) {
+            const saturation = (max - min) / (max + min || 1);
+            const adj = 1 + vibranceAmount * (1 - saturation);
+            
+            if (r === max) r = Math.max(0, Math.min(255, r * adj));
+            if (g === max) g = Math.max(0, Math.min(255, g * adj));
+            if (b === max) b = Math.max(0, Math.min(255, b * adj));
+          }
+        } else {
+          const desatAmount = vibranceAmount;
+          r = Math.max(0, Math.min(255, r + (luminance - r) * desatAmount));
+          g = Math.max(0, Math.min(255, g + (luminance - g) * desatAmount));
+          b = Math.max(0, Math.min(255, b + (luminance - b) * desatAmount));
+        }
+        
+        data[i] = r;
+        data[i + 1] = g;
+        data[i + 2] = b;
+      }
+      
+      ctx.putImageData(imageData, 0, 0);
+    }
+
+    function applySharpness(ctx, canvas, amount) {
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const width = canvas.width;
+      const kernelAmount = Math.min(amount / 100, 1.5);
+      const kernel = [0, -kernelAmount, 0, -kernelAmount, 1 + 4 * kernelAmount, -kernelAmount, 0, -kernelAmount, 0];
+      
+      for (let i = width * 4; i < data.length - width * 4; i++) {
+        if ((i / 4) % width > 0 && (i / 4) % width < width - 1) {
+          for (let c = 0; c < 3; c++) {
+            let pixel = 0;
+            pixel += data[i - width * 4 + c] * kernel[0];
+            pixel += data[i - 4 + c] * kernel[1];
+            pixel += data[i + c] * kernel[2];
+            pixel += data[i - width * 4 + 4 + c] * kernel[3];
+            pixel += data[i + 4 + c] * kernel[4];
+            pixel += data[i + width * 4 - 4 + c] * kernel[5];
+            pixel += data[i + width * 4 + c] * kernel[6];
+            pixel += data[i + width * 4 + 4 + c] * kernel[7];
+            data[i + c] = Math.max(0, Math.min(255, pixel));
+          }
+        }
+      }
+      ctx.putImageData(imageData, 0, 0);
+    }
+
+    function applyClarity(ctx, canvas, amount) {
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const clarityAmount = amount / 100;
+      
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+        
+        data[i] = Math.max(0, Math.min(255, r + (r - luminance) * clarityAmount * 0.5));
+        data[i + 1] = Math.max(0, Math.min(255, g + (g - luminance) * clarityAmount * 0.5));
+        data[i + 2] = Math.max(0, Math.min(255, b + (b - luminance) * clarityAmount * 0.5));
+      }
+      ctx.putImageData(imageData, 0, 0);
+    }
+
+    function applyVibrance(ctx, canvas, amount) {
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const vibranceAmount = Math.abs(amount) / 100;
+      const isIncrease = amount > 0;
+      
+      for (let i = 0; i < data.length; i += 4) {
+        let r = data[i];
+        let g = data[i + 1];
+        let b = data[i + 2];
+        
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const luminance = (max + min) / 2;
+        
+        if (isIncrease) {
+          if (max !== min) {
+            const saturation = (max - min) / (max + min);
+            const adj = 1 + vibranceAmount * (1 - saturation);
+            
+            if (r === max) r = Math.max(0, Math.min(255, r * adj));
+            if (g === max) g = Math.max(0, Math.min(255, g * adj));
+            if (b === max) b = Math.max(0, Math.min(255, b * adj));
+          }
+        } else {
+          const desatAmount = vibranceAmount;
+          r = Math.max(0, Math.min(255, r + (luminance - r) * desatAmount));
+          g = Math.max(0, Math.min(255, g + (luminance - g) * desatAmount));
+          b = Math.max(0, Math.min(255, b + (luminance - b) * desatAmount));
+        }
+        
+        data[i] = r;
+        data[i + 1] = g;
+        data[i + 2] = b;
+      }
+      ctx.putImageData(imageData, 0, 0);
     }
 
     function downloadRenderImage() {
@@ -2358,7 +2998,7 @@
         return;
       }
       
-      const fileName = `render-melhorado-${currentRenderFile.name}`;
+      const fileName = `render-editado-${Date.now()}-${currentRenderFile.name}`;
       const url = URL.createObjectURL(currentRenderBlob);
       const a = document.createElement('a');
       a.href = url;
@@ -2369,6 +3009,91 @@
       showRenderStatus('✓ Render salvo com sucesso!');
       currentRenderBlob = null;
       removeRenderFile();
+    }
+
+    async function processBatchWithPreset() {
+      if (batchFiles.length === 0) {
+        showRenderStatus('Nenhum arquivo para processar', true);
+        return;
+      }
+
+      showRenderStatus(`⏳ Processando ${batchFiles.length} arquivos...`);
+      document.getElementById('renderBatchProcessBtn').disabled = true;
+      processedBatchBlobs = [];
+
+      for (let i = 0; i < batchFiles.length; i++) {
+        try {
+          const blob = await applyRenderEnhance(batchFiles[i]);
+          if (blob) {
+            processedBatchBlobs.push({
+              blob: blob,
+              name: batchFiles[i].name
+            });
+          }
+        } catch (e) {
+          console.error('Erro ao processar arquivo:', e);
+        }
+      }
+
+      document.getElementById('renderBatchProcessBtn').disabled = false;
+      showRenderStatus(`✓ ${processedBatchBlobs.length}/${batchFiles.length} arquivos processados!`);
+      
+      if (processedBatchBlobs.length > 0) {
+        document.getElementById('renderBatchZipBtn').style.display = 'inline-block';
+      }
+    }
+
+    async function downloadBatchAsZip() {
+      if (processedBatchBlobs.length === 0) {
+        showRenderStatus('Nenhum arquivo processado para baixar', true);
+        return;
+      }
+
+      showRenderStatus('📦 Preparando ZIP...');
+      document.getElementById('renderBatchZipBtn').disabled = true;
+
+      try {
+        // Usar JSZip se disponível, senão fazer download individual
+        if (typeof JSZip === 'undefined') {
+          // Fallback: download individual
+          for (const item of processedBatchBlobs) {
+            const url = URL.createObjectURL(item.blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `editado-${Date.now()}-${item.name}`;
+            a.click();
+            URL.revokeObjectURL(url);
+            await new Promise(resolve => setTimeout(resolve, 100));
+          }
+          showRenderStatus('✓ Arquivos baixados!');
+        } else {
+          // Com JSZip
+          const zip = new JSZip();
+          const folder = zip.folder('renders-editados');
+
+          for (const item of processedBatchBlobs) {
+            folder.file(item.name, item.blob);
+          }
+
+          const zipBlob = await zip.generateAsync({ type: 'blob' });
+          const url = URL.createObjectURL(zipBlob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `renders-editados-${Date.now()}.zip`;
+          a.click();
+          URL.revokeObjectURL(url);
+          showRenderStatus('✓ ZIP baixado com sucesso!');
+        }
+      } catch (e) {
+        console.error('Erro ao criar ZIP:', e);
+        showRenderStatus('Erro ao criar ZIP. Baixando individualmente...', true);
+      }
+
+      document.getElementById('renderBatchZipBtn').disabled = false;
+    }
+
+    function toggleBeforeAfter() {
+      // Esta função será implementada com slider de comparação se necessário
     }
 
     function resetRenderControls() {
@@ -2389,6 +3114,12 @@
       
       document.getElementById('renderTemperature').value = 0;
       document.getElementById('renderTemperatureValue').textContent = 'Neutra';
+
+      document.getElementById('renderClarity').value = 0;
+      document.getElementById('renderClarityValue').textContent = '0%';
+      
+      document.getElementById('renderVibrance').value = 0;
+      document.getElementById('renderVibranceValue').textContent = '0%';
 
       if (currentRenderFile) {
         applyRenderEnhance();

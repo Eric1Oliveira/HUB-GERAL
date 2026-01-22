@@ -12,6 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/image-compression@2.0.0/browser/index.global.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <link rel="stylesheet" href="style.css">
  </head>
  <body>
@@ -651,52 +652,187 @@
 
            <div class="enhance-section">
             <h4 class="enhance-section-title">📸 Presets Profissionais</h4>
-            <div class="presets-grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
-             <!-- Influencer/Redes Sociais -->
-             <button type="button" class="preset-btn-pro" onclick="applyPreset('influencer')" title="Cores vibrantes, feed harmonioso">
-              <span class="preset-icon">📱</span>
-              <span class="preset-name">Influencer</span>
-             </button>
-             <!-- Cinemático -->
-             <button type="button" class="preset-btn-pro" onclick="applyPreset('cinematic')" title="Alto contraste, dramático">
-              <span class="preset-icon">🎬</span>
-              <span class="preset-name">Cinemático</span>
-             </button>
-             <!-- Casamento/Família -->
-             <button type="button" class="preset-btn-pro" onclick="applyPreset('wedding')" title="Suave, tons de pele realçados">
-              <span class="preset-icon">💕</span>
-              <span class="preset-name">Casamento</span>
-             </button>
-             <!-- Paisagem Premium -->
-             <button type="button" class="preset-btn-pro" onclick="applyPreset('landscape')" title="Cores ricas, céu detalhado">
-              <span class="preset-icon">🏞️</span>
-              <span class="preset-name">Paisagem</span>
-             </button>
-             <!-- Retrato Premium -->
-             <button type="button" class="preset-btn-pro" onclick="applyPreset('portrait')" title="Pele suave, olhos vivos">
-              <span class="preset-icon">👤</span>
-              <span class="preset-name">Retrato</span>
-             </button>
-             <!-- Produto -->
-             <button type="button" class="preset-btn-pro" onclick="applyPreset('product')" title="Cores fiéis, detalhes nítidos">
-              <span class="preset-icon">📦</span>
-              <span class="preset-name">Produto</span>
-             </button>
-             <!-- Comida -->
-             <button type="button" class="preset-btn-pro" onclick="applyPreset('food')" title="Cores quentes, apetitosas">
-              <span class="preset-icon">🍽️</span>
-              <span class="preset-name">Comida</span>
-             </button>
-             <!-- Preto e Branco -->
-             <button type="button" class="preset-btn-pro" onclick="applyPreset('blackwhite')" title="Clássico e intemporal">
-              <span class="preset-icon">⚫</span>
-              <span class="preset-name">P&B</span>
-             </button>
-             <!-- HDR/Dramático -->
-             <button type="button" class="preset-btn-pro" onclick="applyPreset('hdr')" title="Detalhes em todos os tons">
-              <span class="preset-icon">🌟</span>
-              <span class="preset-name">HDR</span>
-             </button>
+            <div class="presets-categories">
+             <!-- Realismo Natural -->
+             <div class="preset-group">
+              <div class="preset-group-title">Realismo Natural</div>
+              <div class="presets-grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('photorealistic')" title="Cores fiéis, extremamente realista">
+                <span class="preset-icon">📸</span>
+                <span class="preset-name">Fotorrealista</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('natural')" title="Cor natural, sem excessos">
+                <span class="preset-icon">🌿</span>
+                <span class="preset-name">Natural</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('balanced')" title="Equilíbrio perfeito">
+                <span class="preset-icon">⚖️</span>
+                <span class="preset-name">Balanceado</span>
+               </button>
+              </div>
+             </div>
+
+             <!-- Tipos de Fotografia -->
+             <div class="preset-group">
+              <div class="preset-group-title">Tipos de Fotografia</div>
+              <div class="presets-grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('portrait')" title="Retrato: Pele suave, olhos vivos, tons quentes">
+                <span class="preset-icon">👤</span>
+                <span class="preset-name">Retrato</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('portrait_studio')" title="Retrato Studio: Profissional, fundo limpo">
+                <span class="preset-icon">🎥</span>
+                <span class="preset-name">Retrato Studio</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('wedding')" title="Casamento: Romântico, tons pastéis suaves">
+                <span class="preset-icon">💕</span>
+                <span class="preset-name">Casamento</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('landscape')" title="Paisagem: Cores ricas, céu vibrante">
+                <span class="preset-icon">🏞️</span>
+                <span class="preset-name">Paisagem</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('nature')" title="Natureza: Detalhes nítidos, cores naturais">
+                <span class="preset-icon">🌲</span>
+                <span class="preset-name">Natureza</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('wildlife')" title="Vida Selvagem: Alto contraste, cores vivas">
+                <span class="preset-icon">🦁</span>
+                <span class="preset-name">Vida Selvagem</span>
+               </button>
+              </div>
+             </div>
+
+             <!-- Comercial & Produto -->
+             <div class="preset-group">
+              <div class="preset-group-title">Comercial & Produto</div>
+              <div class="presets-grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('product')" title="Produto: Cores fiéis, detalhes nítidos">
+                <span class="preset-icon">📦</span>
+                <span class="preset-name">Produto</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('ecommerce')" title="E-commerce: Brilhante, chamativo">
+                <span class="preset-icon">🛍️</span>
+                <span class="preset-name">E-commerce</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('food')" title="Comida: Cores quentes, apetitosas">
+                <span class="preset-icon">🍽️</span>
+                <span class="preset-name">Comida</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('architecture')" title="Arquitetura: Linhas nítidas, cores neutras">
+                <span class="preset-icon">🏢</span>
+                <span class="preset-name">Arquitetura</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('real_estate')" title="Imóvel: Luminoso, atraente">
+                <span class="preset-icon">🏠</span>
+                <span class="preset-name">Imóvel</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('jewelry')" title="Joias: Brilho, detalhes extremos">
+                <span class="preset-icon">💎</span>
+                <span class="preset-name">Joias</span>
+               </button>
+              </div>
+             </div>
+
+             <!-- Redes Sociais & Digital -->
+             <div class="preset-group">
+              <div class="preset-group-title">Redes Sociais & Digital</div>
+              <div class="presets-grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('instagram')" title="Instagram: Cores vibrantes, feed harmonioso">
+                <span class="preset-icon">📱</span>
+                <span class="preset-name">Instagram</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('tiktok')" title="TikTok: Cores intensas, dinâmico">
+                <span class="preset-icon">🎬</span>
+                <span class="preset-name">TikTok</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('thumbnail')" title="Thumbnail: Alto contraste, destaca">
+                <span class="preset-icon">▶️</span>
+                <span class="preset-name">Thumbnail</span>
+               </button>
+              </div>
+             </div>
+
+             <!-- Estilos Cinematográficos -->
+             <div class="preset-group">
+              <div class="preset-group-title">Estilos Cinematográficos</div>
+              <div class="presets-grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('cinematic')" title="Cinemático: Alto contraste, dramaticidade">
+                <span class="preset-icon">🎬</span>
+                <span class="preset-name">Cinemático</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('cinematic_warm')" title="Cinemático Quente: Tons dourados">
+                <span class="preset-icon">🔥</span>
+                <span class="preset-name">Cinemat. Quente</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('cinematic_cool')" title="Cinemático Frio: Tons azuis">
+                <span class="preset-icon">❄️</span>
+                <span class="preset-name">Cinemat. Frio</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('noir')" title="Film Noir: P&B clássico, contrastado">
+                <span class="preset-icon">⚫</span>
+                <span class="preset-name">Film Noir</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('vintage')" title="Vintage: Retro, tons fados">
+                <span class="preset-icon">🎞️</span>
+                <span class="preset-name">Vintage</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('hdr')" title="HDR: Detalhes em todos os tons">
+                <span class="preset-icon">🌟</span>
+                <span class="preset-name">HDR</span>
+               </button>
+              </div>
+             </div>
+
+             <!-- Efeitos Avançados -->
+             <div class="preset-group">
+              <div class="preset-group-title">Efeitos Avançados</div>
+              <div class="presets-grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('vivid')" title="Vívido: Cores intensas e saturadas">
+                <span class="preset-icon">🎆</span>
+                <span class="preset-name">Vívido</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('high_contrast')" title="Alto Contraste: Drama e definição">
+                <span class="preset-icon">◼️</span>
+                <span class="preset-name">Alto Contraste</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('matte')" title="Matte: Acabamento fosco profissional">
+                <span class="preset-icon">🎨</span>
+                <span class="preset-name">Matte</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('faded')" title="Fade: Suave, estilo retrô">
+                <span class="preset-icon">💫</span>
+                <span class="preset-name">Fade</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('sepia')" title="Sépia: Tom antigo, nostálgico">
+                <span class="preset-icon">🟤</span>
+                <span class="preset-name">Sépia</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('bw')" title="P&B: Clássico em preto e branco">
+                <span class="preset-icon">⚪</span>
+                <span class="preset-name">P&B</span>
+               </button>
+              </div>
+             </div>
+
+             <!-- Correções Técnicas -->
+             <div class="preset-group">
+              <div class="preset-group-title">Correções Técnicas</div>
+              <div class="presets-grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('exposure_fix')" title="Corrigir Exposição: Para fotos escuras">
+                <span class="preset-icon">☀️</span>
+                <span class="preset-name">Corrig. Expos.</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('overexposed_fix')" title="Corrigir Superexposição: Para fotos claras">
+                <span class="preset-icon">📉</span>
+                <span class="preset-name">Correç. Over.</span>
+               </button>
+               <button type="button" class="preset-btn-pro" onclick="applyPreset('white_balance')" title="Balanço de Branco: Corrige temperatura">
+                <span class="preset-icon">⚪</span>
+                <span class="preset-name">Balanço Branco</span>
+               </button>
+              </div>
+             </div>
             </div>
            </div>
 
@@ -835,7 +971,8 @@
    </div><!-- Placeholder Module -->
    <div class="module-view" id="promobrenderview">
     <div class="module-header"><button class="back-button" onclick="showHub()">← Voltar</button>
-     <h2 class="module-header-title">🎨 Melhorador de Renders 3D (Promob)</h2>
+     <h2 class="module-header-title">🎨 Editor Profissional de Renders 3D</h2>
+     <div class="module-header-subtitle">Presets realistas, múltiplos arquivos e download em lote</div>
     </div>
     <div class="module-content">
      <div class="render-main-layout">
@@ -843,45 +980,131 @@
       <div class="render-left-panel">
        <!-- Upload Section -->
        <div class="render-section">
-        <h4 class="render-section-title">📤 Upload do Render</h4>
-        <div class="upload-area" id="renderUploadArea" style="margin-bottom: 0;">
-         <svg width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="upload-icon">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="17 8 12 3 7 8"/>
-          <line x1="12" y1="3" x2="12" y2="15"/>
-         </svg>
-         <h3 class="upload-title">Selecione um Render</h3>
-         <p class="upload-subtitle">Arraste ou clique</p>
-         <input type="file" id="renderFile" class="file-input" accept="image/*" hidden>
+        <h4 class="render-section-title">📤 Upload de Renders</h4>
+        <div class="render-mode-toggle">
+         <button type="button" class="mode-btn active" data-mode="single">Arquivo Único</button>
+         <button type="button" class="mode-btn" data-mode="batch">Múltiplos</button>
         </div>
-        <div id="renderSelectedFile" class="selected-file-info" style="display: none; margin-top: 12px;">
-         <div class="selected-file-name" id="renderFileName"></div>
-         <div class="selected-file-size" id="renderFileSize"></div>
-         <button type="button" class="remove-file-btn" onclick="removeRenderFile()">Remover</button>
+        
+        <!-- Single Mode -->
+        <div id="singleUploadMode" class="upload-mode">
+         <div class="upload-area" id="renderUploadArea">
+          <svg width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="upload-icon">
+           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+           <polyline points="17 8 12 3 7 8"/>
+           <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <h3 class="upload-title">Selecione um Render</h3>
+          <p class="upload-subtitle">Arraste ou clique</p>
+          <input type="file" id="renderFile" class="file-input" accept="image/*" hidden>
+         </div>
+         <div id="renderSelectedFile" class="selected-file-info" style="display: none; margin-top: 12px;">
+          <div class="selected-file-name" id="renderFileName"></div>
+          <div class="selected-file-size" id="renderFileSize"></div>
+          <button type="button" class="remove-file-btn" onclick="removeRenderFile()">Remover</button>
+         </div>
+        </div>
+
+        <!-- Batch Mode -->
+        <div id="batchUploadMode" class="upload-mode" style="display: none;">
+         <div class="upload-area" id="renderBatchUploadArea">
+          <svg width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="upload-icon">
+           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+           <polyline points="17 8 12 3 7 8"/>
+           <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <h3 class="upload-title">Adicione Múltiplos Renders</h3>
+          <p class="upload-subtitle">Arraste vários ou clique</p>
+          <input type="file" id="renderBatchFiles" class="file-input" accept="image/*" multiple hidden>
+         </div>
+         <div id="renderBatchList" class="batch-files-list" style="display: none; margin-top: 12px;">
+          <div class="batch-files-header">
+           <div>Arquivos Selecionados</div>
+           <button type="button" class="remove-all-btn" onclick="clearBatchFiles()">Limpar Tudo</button>
+          </div>
+          <div id="batchFilesList" class="batch-items"></div>
+         </div>
         </div>
        </div>
 
-       <!-- Presets -->
+       <!-- Presets Profissionais -->
        <div class="render-section">
-        <h4 class="render-section-title">✨ Estilos Rápidos</h4>
-        <div class="render-presets-grid-compact">
-         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('natural')" title="Natural">🌿</button>
-         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('vibrant')" title="Vibrante">🎆</button>
-         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('professional')" title="Profissional">💼</button>
-         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('showcase')" title="Showcase">⭐</button>
-         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('warm')" title="Quente">🔥</button>
-         <button type="button" class="render-preset-btn-small" onclick="applyRenderPreset('cool')" title="Frio">❄️</button>
+        <h4 class="render-section-title">✨ Presets Profissionais</h4>
+        <div class="render-presets-grid">
+         <div class="preset-category">
+          <div class="preset-category-title">Realismo Natural</div>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('photorealistic')" title="Fotorrealista - Extremamente realista com cores naturais">
+           <span class="preset-icon">📸</span>
+           <span class="preset-name">Fotorrealista</span>
+          </button>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('refined')" title="Refinado - Realista com ajustes sutis">
+           <span class="preset-icon">✨</span>
+           <span class="preset-name">Refinado</span>
+          </button>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('balanced')" title="Balanceado - Equilíbrio perfeito">
+           <span class="preset-icon">⚖️</span>
+           <span class="preset-name">Balanceado</span>
+          </button>
+         </div>
+
+         <div class="preset-category">
+          <div class="preset-category-title">Apresentação Profissional</div>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('showcase')" title="Showcase - Apresentação impactante">
+           <span class="preset-icon">⭐</span>
+           <span class="preset-name">Showcase</span>
+          </button>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('cinema')" title="Cinema - Resultado cinematográfico">
+           <span class="preset-icon">🎬</span>
+           <span class="preset-name">Cinematográfico</span>
+          </button>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('gallery')" title="Galeria - Pronto para portfólio">
+           <span class="preset-icon">🖼️</span>
+           <span class="preset-name">Galeria</span>
+          </button>
+         </div>
+
+         <div class="preset-category">
+          <div class="preset-category-title">Temperamento de Cor</div>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('warm_natural')" title="Quente Natural - Tom quente realista">
+           <span class="preset-icon">🔥</span>
+           <span class="preset-name">Quente Natural</span>
+          </button>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('cool_natural')" title="Frio Natural - Tom frio realista">
+           <span class="preset-icon">❄️</span>
+           <span class="preset-name">Frio Natural</span>
+          </button>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('daylight')" title="Luz do Dia - Iluminação natural do dia">
+           <span class="preset-icon">☀️</span>
+           <span class="preset-name">Luz do Dia</span>
+          </button>
+         </div>
+
+         <div class="preset-category">
+          <div class="preset-category-title">Efeitos Especiais</div>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('high_contrast')" title="Alto Contraste - Drama e definição">
+           <span class="preset-icon">◼️</span>
+           <span class="preset-name">Alto Contraste</span>
+          </button>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('vivid')" title="Vívido - Cores intensas e vibrantes">
+           <span class="preset-icon">🎆</span>
+           <span class="preset-name">Vívido</span>
+          </button>
+          <button type="button" class="render-preset-btn" onclick="applyRenderPreset('matte')" title="Matte - Acabamento fosco profissional">
+           <span class="preset-icon">🎨</span>
+           <span class="preset-name">Matte</span>
+          </button>
+         </div>
         </div>
        </div>
 
        <!-- Ajustes Profissionais -->
        <div class="render-section">
-        <h4 class="render-section-title">⚙️ Ajustes</h4>
+        <h4 class="render-section-title">⚙️ Ajustes Avançados</h4>
         
         <div class="render-control-group-compact">
          <label class="control-label">💡 Iluminação</label>
          <div class="control-slider-compact">
-          <input type="range" id="renderLighting" min="50" max="150" value="100" class="slider">
+          <input type="range" id="renderLighting" min="40" max="160" value="100" class="slider">
           <span class="control-value-compact" id="renderLightingValue">100%</span>
          </div>
         </div>
@@ -889,7 +1112,7 @@
         <div class="render-control-group-compact">
          <label class="control-label">🎯 Contraste</label>
          <div class="control-slider-compact">
-          <input type="range" id="renderContrast" min="50" max="200" value="100" class="slider">
+          <input type="range" id="renderContrast" min="30" max="200" value="100" class="slider">
           <span class="control-value-compact" id="renderContrastValue">100%</span>
          </div>
         </div>
@@ -905,15 +1128,15 @@
         <div class="render-control-group-compact">
          <label class="control-label">🔍 Nitidez</label>
          <div class="control-slider-compact">
-          <input type="range" id="renderSharpness" min="0" max="100" value="0" class="slider">
+          <input type="range" id="renderSharpness" min="0" max="120" value="0" class="slider">
           <span class="control-value-compact" id="renderSharpnessValue">0%</span>
          </div>
         </div>
 
         <div class="render-control-group-compact">
-         <label class="control-label">☀️ Brilho</label>
+         <label class="control-label">☀️ Brilho <span class="hint-text">(Sem clipping)</span></label>
          <div class="control-slider-compact">
-          <input type="range" id="renderBrightness" min="0" max="200" value="100" class="slider">
+          <input type="range" id="renderBrightness" min="50" max="150" value="100" class="slider">
           <span class="control-value-compact" id="renderBrightnessValue">100%</span>
          </div>
         </div>
@@ -925,12 +1148,31 @@
           <span class="control-value-compact" id="renderTemperatureValue">Neutra</span>
          </div>
         </div>
+
+        <div class="render-control-group-compact">
+         <label class="control-label">📊 Clareza (Micro-contraste)</label>
+         <div class="control-slider-compact">
+          <input type="range" id="renderClarity" min="-50" max="100" value="0" class="slider">
+          <span class="control-value-compact" id="renderClarityValue">0%</span>
+         </div>
+        </div>
+
+        <div class="render-control-group-compact">
+         <label class="control-label">🎭 Vibração (Saturação Seletiva)</label>
+         <div class="control-slider-compact">
+          <input type="range" id="renderVibrance" min="-50" max="100" value="0" class="slider">
+          <span class="control-value-compact" id="renderVibranceValue">0%</span>
+         </div>
+        </div>
        </div>
 
        <!-- Botões de Ação -->
        <div class="render-section">
+        <div id="renderStatus" class="render-status"></div>
         <button type="button" class="render-btn-apply" onclick="applyRenderEnhance()" id="renderApplyBtn" style="display: none;">✓ Aplicar</button>
         <button type="button" class="render-btn-download" onclick="downloadRenderImage()" id="renderDownloadBtn" style="display: none;">💾 Salvar</button>
+        <button type="button" class="render-btn-batch" onclick="processBatchWithPreset()" id="renderBatchProcessBtn" style="display: none;">⚡ Processar Todos</button>
+        <button type="button" class="render-btn-batch-zip" onclick="downloadBatchAsZip()" id="renderBatchZipBtn" style="display: none;">📦 Baixar ZIP</button>
         <button type="button" class="render-btn-reset" onclick="resetRenderControls()">🔄 Resetar</button>
        </div>
       </div>
@@ -945,6 +1187,14 @@
          <p>Carregue um render 3D para começar</p>
         </div>
         <img id="renderPreviewImg" class="render-preview-img" style="display: none;" alt="Preview">
+        <div id="renderPreviewControls" class="render-preview-controls" style="display: none;">
+         <div class="preview-comparison">
+          <label>
+           <input type="checkbox" id="renderBeforeAfter" onchange="toggleBeforeAfter()">
+           Comparar Antes/Depois
+          </label>
+         </div>
+        </div>
        </div>
       </div>
      </div>
